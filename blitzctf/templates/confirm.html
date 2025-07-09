@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="confirm-panel">
+    <h1>Confirm Your Email</h1>
+
+    {% include "components/errors.html" %}
+
+    <h5 class="confirm-message">
+        We've sent a confirmation email to your email address.
+    </h5>
+
+    <h5 class="confirm-message">
+        Please click the link in that email to confirm your account.
+    </h5>
+
+    <h5 class="confirm-message">
+        If the email doesn’t arrive, check your spam folder or contact an administrator to manually verify your account.
+    </h5>
+
+    <hr>
+
+    {% with form = Forms.auth.ConfirmForm() %}
+    <form method="POST" action="{{ url_for('auth.confirm') }}" class="confirm-form">
+        {{ form.nonce() }}
+        <div class="confirm-buttons">
+            {{ form.submit(class="btn btn-primary") }}
+            <a href="{{ url_for('views.settings') }}" class="btn btn-secondary">Change Email Address</a>
+        </div>
+    </form>
+    {% endwith %}
+</div>
+
+<style>
+    .confirm-panel {
+        max-width: 1000px;
+        margin: 4rem auto;
+        padding: 30px;
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border: 3px solid #555555;
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        font-family: 'Press Start 2P', monospace;
+        color: #CCCCCC;
+        text-align: center;
+    }
+
+    .confirm-panel h1 {
+        margin-bottom: 2rem;
+        color: #FFD700;
+        text-shadow: 2px 2px #8B0000;
+        font-size: 20px;
+    }
+
+    .confirm-message {
+        margin-bottom: 1.5rem;
+        font-size: 14px;
+        color: #FFD700;
+        line-height: 1.5;
+    }
+
+    hr {
+        border-color: #555555;
+        margin: 2rem 0;
+    }
+
+    .confirm-form {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+    }
+
+    .btn {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        padding: 12px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        border: 2px solid transparent;
+        box-shadow: 2px 2px 0 #000000;
+        transition: background 0.3s ease;
+        display: inline-block;
+        color: #FFFFFF;
+        text-decoration: none;
+        user-select: none;
+        min-height: 40px;
+        min-width: 120px;
+        text-align: center;
+        line-height: 20px;
+    }
+
+    .btn-primary {
+        background: #4A90E2;
+        border-color: #2A5DB0;
+        box-shadow: 2px 2px 0 #2A5DB0;
+    }
+
+    .btn-primary:hover {
+        background: #2A5DB0;
+        box-shadow: 2px 2px 5px #1A3A6D;
+    }
+
+    .btn-secondary {
+        background: #3C3C3C;
+        border-color: #8B7500;
+        color: #FFD700;
+        box-shadow: 2px 2px 0 #000000;
+    }
+
+    .btn-secondary:hover {
+        background: #505050;
+        box-shadow: 2px 2px 5px #222222;
+        color: #FFD700;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

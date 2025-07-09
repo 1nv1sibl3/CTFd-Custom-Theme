@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="new-team-panel">
+    <h1>Create Team</h1>
+
+    {% include "components/errors.html" %}
+
+    {% with form = Forms.teams.TeamRegisterForm() %}
+    {% from "macros/forms.html" import render_extra_fields %}
+    <form method="POST" class="new-team-form">
+        <div class="form-group">
+            <b>{{ form.name.label }}</b>
+            {{ form.name(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <b>{{ form.password.label }}</b>
+            {{ form.password(class="form-control") }}
+        </div>
+
+        {{ render_extra_fields(form.extra) }}
+
+        <div class="form-group info-text">
+            <p>After creating your team, share the team name and password with your teammates so they can join your team.</p>
+        </div>
+
+        <div class="form-group submit-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+        {{ form.nonce() }}
+    </form>
+    {% endwith %}
+</div>
+
+<style>
+    .new-team-panel {
+        max-width: 500px;
+        margin: 3rem auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border: 3px solid #555555;
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        font-family: 'Press Start 2P', monospace;
+        color: #CCCCCC;
+        text-align: center;
+    }
+
+    .new-team-panel h1 {
+        margin-bottom: 2rem;
+        color: #FFD700;
+        text-shadow: 2px 2px #8B0000;
+        font-size: 20px;
+    }
+
+    .form-group b,
+    label {
+        display: block;
+        margin-bottom: 0.75rem;
+        color: #FFD700;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+
+    .form-control {
+        background: #3C3C3C;
+        border: 2px solid #8B7500;
+        color: #FFD700;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 12px;
+        padding: 8px;
+        box-shadow: 2px 2px 0 #000000;
+        border-radius: 4px;
+        outline: none;
+        transition: background 0.3s ease, border-color 0.3s ease;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .form-control:focus {
+        background: #505050;
+        border-color: #FFD700;
+        box-shadow: 0 0 8px #FFD700;
+        color: #FFD700;
+    }
+
+    .info-text p {
+        font-size: 12px;
+        color: #FFD700;
+        margin-bottom: 1.5rem;
+    }
+
+    .submit-group {
+        margin-top: 1rem;
+    }
+
+    .btn {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        padding: 12px 24px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        border: 2px solid transparent;
+        box-shadow: 2px 2px 0 #000000;
+        transition: background 0.3s ease;
+        color: #FFFFFF;
+        user-select: none;
+        text-align: center;
+        display: inline-block;
+        min-width: 140px;
+        min-height: 40px;
+    }
+
+    .btn-primary {
+        background: #4A90E2;
+        border-color: #2A5DB0;
+        box-shadow: 2px 2px 0 #2A5DB0;
+    }
+
+    .btn-primary:hover {
+        background: #2A5DB0;
+        box-shadow: 2px 2px 5px #1A3A6D;
+    }
+</style>
+{% endblock %}

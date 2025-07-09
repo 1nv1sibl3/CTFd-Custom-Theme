@@ -1,0 +1,410 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+        font-family: 'Press Start 2P', monospace;
+        background-color: #1a1a1a; 
+        color: #CCCCCC; 
+        cursor: url('https://cur.cursors-4u.net/games/gam-15/gam1462.cur'), auto; 
+    }
+
+    /* === JUMBOTRON / Hero Section === */
+    .retro-jumbotron { 
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c); 
+        border: 3px solid #555555; 
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: 3rem auto; 
+        text-align: center;
+        position: relative;
+    }
+
+    .retro-jumbotron h1 {
+        color: #FFD700;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 32px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px #8B0000;
+    }
+
+
+    /* === GRAPH CONTAINER === */
+    #score-graph {
+        margin: 30px auto;
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c); 
+        border: 3px solid #ffffff; 
+        box-shadow: 4px 4px 0 #222222; 
+        border-radius: 8px; 
+        padding: 20px;
+        min-height: 400px;
+        max-width: 95%;
+        color: white; 
+    }
+
+
+    #score-graph > div {
+    }
+
+    /* Chart-specific styling */
+    #score-graph canvas,
+    #score-graph svg,
+    #score-graph .echarts-container {
+        background: white !important;
+        border-radius: 0px; 
+    }
+
+ 
+    #score-graph * {
+        font-family: 'Press Start 2P', monospace !important;
+        color:white
+    }
+
+    /* Chart tooltip styling */
+    .echarts-tooltip {
+        background: rgba(0, 0, 0, 0.9) !important;
+        border: 2px solid #FFD700 !important; 
+        color: #FFD700 !important;
+        font-family: 'Press Start 2P', monospace !important;
+        font-size: 10px !important;
+        box-shadow: 2px 2px 0 #000000;
+        border-radius: 4px; 
+        color:white;
+    }
+
+    /* === TABLE CONTAINER === */
+    .table-container {
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c); 
+        border-radius: 8px; 
+        padding: 20px;
+        margin: 30px auto;
+        max-width: 95%;
+        box-shadow: 4px 4px 0 #222222; 
+        border: 3px solid #555555; 
+    }
+
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 14px;
+        color: #CCCCCC; 
+        background: transparent;
+        font-family: 'Press Start 2P', monospace;
+    }
+
+    th, td {
+        padding: 16px 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    th {
+        background: #3c3c3c; 
+        font-weight: bold;
+        font-size: 16px;
+        color: #FFD700;
+        text-shadow: 2px 2px #8B0000; 
+        border-bottom: 3px solid #FFD700; 
+    }
+
+    tbody tr {
+        background: #2a2a2a; 
+    }
+
+    tbody tr:nth-child(even) {
+        background: #3c3c3c; 
+    }
+
+    tbody tr:hover {
+        background: #505050; 
+        transform: none; 
+        box-shadow: 2px 2px 5px #222222; 
+    }
+
+    /* === RANK STYLING === */
+    .neon-rank {
+        font-family: 'Press Start 2P', monospace;
+        font-weight: bold;
+        font-size: 16px;
+        color: #FFD700 !important;
+        text-shadow: 0 0 8px #FFD700;
+    }
+
+    tbody tr:nth-child(1) .neon-rank {
+        color: #FFD700 !important;
+        text-shadow: 0 0 12px #FFD700;
+        animation: goldPulse 2s ease-in-out infinite;
+    }
+
+    tbody tr:nth-child(2) .neon-rank {
+        color: #c0c0c0 !important;
+        text-shadow: 0 0 8px #c0c0c0;
+    }
+
+    tbody tr:nth-child(3) .neon-rank {
+        color: #cd7f32 !important;
+        text-shadow: 0 0 8px #cd7f32;
+    }
+
+    @keyframes goldPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+
+    /* === TEAM/USER NAME STYLING === */
+    td a {
+        color: #FFD700; 
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        font-family: 'Press Start 2P', monospace;
+        font-size: 12px;
+        text-shadow: 1px 1px #8B7500; 
+    }
+
+    td a:hover {
+        color: #FFFFFF; 
+        text-shadow: 0 0 8px #FFD700;
+        text-decoration: none;
+    }
+
+    /* === BADGE STYLING === */
+    .badge {
+        background: #4A90E2; 
+        color: #FFFFFF;
+        font-weight: bold;
+        padding: 4px 8px;
+        border-radius: 4px; 
+        font-size: 10px;
+        margin-left: 8px;
+        text-transform: uppercase;
+        font-family: 'Press Start 2P', monospace;
+        border: 2px solid #2A5DB0; 
+        box-shadow: 1px 1px 0 #2A5DB0; 
+    }
+
+    /* === SCORE STYLING === */
+    td:last-child {
+        color: #FFD700 !important;
+        font-family: 'Press Start 2P', monospace;
+        font-weight: bold;
+        font-size: 14px;
+        text-shadow: 0 0 5px #FFD700;
+    }
+
+   
+    .button, .btn {
+        background: #4A90E2; 
+        color: #FFFFFF;
+        border: 2px solid #2A5DB0; 
+        box-shadow: 2px 2px 0 #2A5DB0; 
+        padding: 12px 24px; 
+        font-size: 12px;
+        font-family: 'Press Start 2P', monospace;
+        cursor: pointer;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        text-transform: uppercase;
+        border-radius: 4px; 
+    }
+
+    .button:hover, .btn:hover {
+        background: #2A5DB0; 
+        color: #FFFFFF;
+        box-shadow: 2px 2px 5px #1A3A6D; 
+    }
+
+    /* === LOADING SPINNER === */
+    .spinner {
+        color: #FFD700 !important;
+    }
+
+    /* === SCROLLBAR === */
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #1a1a2e;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #FFD700;
+        border-radius: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ffffff;
+    }
+
+    /* === RESPONSIVE DESIGN === */
+    @media (max-width: 768px) {
+        .retro-jumbotron {
+            margin: 2rem; /* Adjusted margin */
+            padding: 30px 20px;
+            border-radius: 6px; /* Slightly smaller radius for smaller screens */
+        }
+
+        .retro-jumbotron h1 {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        #score-graph {
+            margin: 20px auto;
+            padding: 15px;
+            min-height: 300px;
+            border-radius: 6px;
+        }
+
+        #score-graph > div {
+            min-height: 250px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        th, td {
+            padding: 12px 8px;
+        }
+
+        .neon-rank {
+            font-size: 14px;
+        }
+
+        td a {
+            font-size: 10px;
+        }
+
+        .badge {
+            font-size: 8px;
+            padding: 3px 6px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .retro-jumbotron h1 {
+            font-size: 20px;
+        }
+
+        #score-graph {
+            margin: 15px auto;
+            padding: 10px;
+            min-height: 250px;
+        }
+
+        #score-graph > div {
+            min-height: 200px;
+        }
+
+        table {
+            font-size: 10px;
+        }
+
+        th, td {
+            padding: 8px 4px;
+        }
+
+        .neon-rank {
+            font-size: 12px;
+        }
+
+        td a {
+            font-size: 8px;
+        }
+    }
+
+    /* === ACCESSIBILITY === */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+
+    a:focus, button:focus {
+        outline: 2px solid #FFD700;
+        outline-offset: 2px;
+    }
+</style>
+
+<div class="retro-jumbotron"> {# Changed class to match theme consistency #}
+    <div class="container text-center">
+        <h1>Scoreboard</h1>
+    </div>
+</div>
+
+<div class="container">
+    {% include "components/errors.html" %}
+
+    <div id="score-graph" class="row d-flex align-items-center">
+        <div class="col-md-12 text-center">
+            <i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+        </div>
+    </div>
+
+    {% cache 60, CacheKeys.PUBLIC_SCOREBOARD_TABLE %}
+    {% if standings %}
+    <div id="scoreboard" class="row">
+        <div class="col-md-12">
+            <div class="table-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="10px">Place</th>
+                            <th scope="col">{{ get_mode_as_word(capitalize=True) }}</th>
+                            <th scope="col">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for standing in standings %}
+                        <tr>
+                            <th scope="row" class="text-center neon-rank">{{ loop.index }}</th>
+                            <td>
+                                <a href="{{ generate_account_url(standing.account_id) }}">
+                                    {{ standing.name | truncate(50) }}
+
+                                    {% if standing.oauth_id %}
+                                        {% if Configs.user_mode == 'teams' %}
+                                        <a href="https://majorleaguecyber.org/t/{{ standing.name }}">
+                                            <span class="badge">Official</span> {# Removed badge-primary for custom styling #}
+                                        </a>
+                                        {% elif Configs.user_mode == 'users' %}
+                                        <a href="https://majorleaguecyber.org/u/{{ standing.name }}">
+                                            <span class="badge">Official</span> {# Removed badge-primary for custom styling #}
+                                        </a>
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                            </td>
+                            <td>{{ standing.score }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endcache %}
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script defer src="{{ url_for('views.themes', path='js/echarts.bundle.js') }}"></script>
+{% endblock %}
+
+{% block entrypoint %}
+    <script defer src="{{ url_for('views.themes', path='js/pages/scoreboard.js') }}"></script>
+{% endblock %}

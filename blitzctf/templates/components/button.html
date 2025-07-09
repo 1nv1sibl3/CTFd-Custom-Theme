@@ -1,0 +1,144 @@
+{% macro minecraft_button(text='', href='', type='button', classes='', icon='', onclick='', style='') %}
+<{% if href %}a href="{{ href }}"{% else %}button type="{{ type }}"{% endif %} 
+    class="mc-button {{ classes }}"
+    {% if onclick %}onclick="{{ onclick }}"{% endif %}
+    {% if style %}style="{{ style }}"{% endif %}>
+    {% if icon %}<span class="mc-button-icon">{{ icon }}</span>{% endif %}
+    <span class="mc-button-text">{{ text }}</span>
+    {% if href %}</a>{% else %}</button>{% endif %}
+{% endmacro %}
+
+{% macro minecraft_input(type='text', name='', id='', placeholder='', required=false, autofocus=false, value='', classes='') %}
+<input 
+    type="{{ type }}"
+    name="{{ name }}"
+    id="{{ id }}"
+    class="mc-input {{ classes }}"
+    placeholder="{{ placeholder }}"
+    {% if required %}required{% endif %}
+    {% if autofocus %}autofocus{% endif %}
+    {% if value %}value="{{ value }}"{% endif %}
+>
+{% endmacro %}
+
+{% macro minecraft_panel(title='', classes='') %}
+<div class="mc-panel {{ classes }}">
+    {% if title %}
+    <h2 class="mc-panel-title">{{ title }}</h2>
+    {% endif %}
+    {{ caller() }}
+</div>
+{% endmacro %}
+
+<style>
+/* Minecraft Button */
+.mc-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--mc-gui-bg);
+    border: 2px solid;
+    border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+    color: var(--mc-text);
+    font-family: 'Minecraft', monospace;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 2px 2px 0 var(--mc-gui-darker);
+}
+
+.mc-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+}
+
+.mc-button:hover {
+    background: #DFDFDF;
+    border-color: var(--mc-gui-dark) var(--mc-gui-light) var(--mc-gui-light) var(--mc-gui-dark);
+    box-shadow: 1px 1px 0 var(--mc-gui-darker);
+    transform: translate(1px, 1px);
+}
+
+.mc-button:active {
+    background: #B0B0B0;
+    border-color: var(--mc-gui-dark) var(--mc-gui-light) var(--mc-gui-light) var(--mc-gui-dark);
+    box-shadow: inset 1px 1px 0 var(--mc-gui-darker);
+    transform: translate(2px, 2px);
+}
+
+.mc-button-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* Minecraft Input */
+.mc-input {
+    width: 100%;
+    padding: 8px;
+    background: var(--mc-gui-bg);
+    border: 2px solid;
+    border-color: var(--mc-gui-dark) var(--mc-gui-light) var(--mc-gui-light) var(--mc-gui-dark);
+    color: var(--mc-text);
+    font-family: 'Minecraft', monospace;
+    font-size: 12px;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.mc-input:focus {
+    outline: none;
+    background: #D0D0D0;
+    box-shadow: inset 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+/* Minecraft Panel */
+.mc-panel {
+    background: var(--mc-gui-bg);
+    border: 2px solid;
+    border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 4px 4px 0 var(--mc-gui-darker);
+    position: relative;
+}
+
+.mc-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.mc-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.mc-panel-title {
+    color: var(--mc-text);
+    font-size: 16px;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--mc-gui-dark);
+    text-shadow: 1px 1px rgba(255,255,255,0.8);
+}
+</style>

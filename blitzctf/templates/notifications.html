@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="retro-jumbotron">
+    <div class="container">
+        <h1>Notifications</h1>
+    </div>
+</div>
+<div class="container notification-container">
+    {% if not notifications %}
+    <h2 class="no-notifications-message">There are no notifications yet</h2>
+    {% endif %}
+    {% for notification in notifications %}
+    <div class="notification-card">
+        <div class="card-body">
+            <h3 class="card-title">{{ notification.title }}</h3>
+            <div class="card-blockquote">
+                <p>{{ notification.html | safe }}</p>
+                <small class="notification-date"><span data-time="{{ notification.date | isoformat }}"></span></small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    /* Import the pixel font */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    body {
+        background-color: #1a1a1a; /* Dark background to complement the theme */
+        color: #CCCCCC;
+        font-family: 'Press Start 2P', monospace; /* Apply pixel font globally if not already in base.html */
+    }
+
+    .retro-jumbotron {
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border-bottom: 3px solid #555555;
+        box-shadow: 0 4px 0 #222222;
+        padding: 20px 0;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .retro-jumbotron h1 {
+        color: #FFD700;
+        text-shadow: 3px 3px #8B0000;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .notification-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .no-notifications-message {
+        color: #FFD700;
+        text-align: center;
+        margin-top: 3rem;
+        font-size: 14px;
+        text-shadow: 1px 1px #8B0000;
+    }
+
+    .notification-card {
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border: 3px solid #555555;
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        padding: 15px;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .notification-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 6px 6px 0 #222222;
+    }
+
+    .notification-card .card-body {
+        padding: 0; /* Adjust as needed, default CTFd themes might add padding here */
+    }
+
+    .notification-card .card-title {
+        color: #4A90E2; /* Blue for titles, similar to login button */
+        font-size: 16px;
+        margin-bottom: 0.8rem;
+        text-shadow: 1px 1px #2A5DB0;
+    }
+
+    .notification-card .card-blockquote {
+        border-left: 4px solid #FFD700; /* Gold accent for blockquote */
+        padding-left: 15px;
+        margin: 0;
+    }
+
+    .notification-card .card-blockquote p {
+        color: #CCCCCC;
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+    }
+
+    .notification-card .notification-date {
+        color: #8B7500; /* Darker gold/brown for date */
+        font-size: 9px;
+        display: block;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block entrypoint %}
+    <script defer src="{{ url_for('views.themes', path='js/pages/notifications.js') }}"></script>
+{% endblock %}

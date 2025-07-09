@@ -1,0 +1,960 @@
+<div class="home-container">
+    <div class="header-section pixel-border">
+        <div class="blitzctf-description">
+            <h1 class="blitzctf-title" data-text="Welcome to BlitzCTF 2025!">Welcome to BlitzCTF 2025!</h1>
+            <p class="description-text terminal-text">Get ready for BlitzCTF 2025, the ultimate cybersecurity showdown hosted by BlitzHack! Whether you're a seasoned hacker or just stepping into the world of Capture the Flag, this competition is designed to test your skills, creativity, and speed across a wide range of categories.</p>
+        </div>
+        <div class="ctfd-timer-container">
+            <div class="timer-box pixel-border">
+                <h2 id="timer-title" class="timer-title">CTF Loading...</h2>
+                <div id="ctfd-timer-display" class="timer-digit-wrapper">
+                    <span id="days-display" class="timer-digit">00d</span>
+                    <span id="hours-display" class="timer-digit">00h</span>
+                    <span id="minutes-display" class="timer-digit">00m</span>
+                    <span id="seconds-display" class="timer-digit">00s</span>
+                </div>
+            </div>
+            <script>
+                // Get CTF dates from CTFd variables
+                // Ensure 'ctf_start' and 'ctf_end' are correctly passed from your CTFd template context.
+                var ctfStartTime = new Date("{{ ctf_start }}").getTime();
+                var ctfEndTime = new Date("{{ ctf_end }}").getTime();
+
+                var timerTitleElement = document.getElementById("timer-title");
+                var daysDisplay = document.getElementById("days-display");
+                var hoursDisplay = document.getElementById("hours-display");
+                var minutesDisplay = document.getElementById("minutes-display");
+                var secondsDisplay = document.getElementById("seconds-display");
+                var timerBox = document.querySelector(".timer-box");
+
+                // Function to format two digits with leading zero
+                function formatTwoDigits(num) {
+                    return num < 10 ? "0" + num : num;
+                }
+
+                // Update the count down every 1 second
+                var x = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance;
+                    var timerStatusText = "";
+                    var timerClassToAdd = "";
+
+                    if (now < ctfStartTime) {
+                        // CTF has not started yet
+                        timerStatusText = "CTF Starts In:";
+                        distance = ctfStartTime - now;
+                        timerClassToAdd = ""; // No specific class for pre-start
+                    } else if (now >= ctfStartTime && now < ctfEndTime) {
+                        // CTF is currently running
+                        timerStatusText = "CTF Ends In:";
+                        distance = ctfEndTime - now;
+                        timerClassToAdd = "active-timer"; // Green glow for active
+                    } else {
+                        // CTF has ended
+                        clearInterval(x);
+                        timerStatusText = "CTF Status:";
+                        timerBox.classList.add("expired-timer-box"); // Change border for expired
+                        timerTitleElement.innerHTML = timerStatusText;
+                        daysDisplay.innerHTML = "EXPIRED";
+                        hoursDisplay.innerHTML = "";
+                        minutesDisplay.innerHTML = "";
+                        secondsDisplay.innerHTML = "";
+                        
+                        daysDisplay.classList.remove("active-timer");
+                        daysDisplay.classList.add("expired-timer");
+                        return; // Exit function if expired
+                    }
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    function updateDigitWithFlip(element, newValue) {
+                        if (element.innerHTML !== newValue) {
+                            element.classList.add('flipping');
+                            setTimeout(() => {
+                                element.innerHTML = newValue;
+                                element.classList.remove('flipping');
+                            }, 300);
+                        }
+                    }
+
+                    // Update innerHTML of respective spans
+                    updateDigitWithFlip(daysDisplay, formatTwoDigits(days) + "d");
+                    updateDigitWithFlip(hoursDisplay, formatTwoDigits(hours) + "h");
+                    updateDigitWithFlip(minutesDisplay, formatTwoDigits(minutes) + "m");
+                    updateDigitWithFlip(secondsDisplay, formatTwoDigits(seconds) + "s");
+
+                    // Function to update digit with flip animation
+                    function updateDigitWithFlip(element, newValue) {
+                        if (element.innerHTML !== newValue) {
+                            element.classList.add('flipping');
+                            setTimeout(() => {
+                                element.innerHTML = newValue;
+                                element.classList.remove('flipping');
+                            }, 300);
+                        }
+                    }
+
+                    // Apply/remove active timer class
+                    if (timerClassToAdd === "active-timer") {
+                        daysDisplay.classList.add("active-timer");
+                        hoursDisplay.classList.add("active-timer");
+                        minutesDisplay.classList.add("active-timer");
+                        secondsDisplay.classList.add("active-timer");
+                    } else {
+                        daysDisplay.classList.remove("active-timer");
+                        hoursDisplay.classList.remove("active-timer");
+                        minutesDisplay.classList.remove("active-timer");
+                        secondsDisplay.classList.remove("active-timer");
+                    }
+                    daysDisplay.classList.remove("expired-timer"); // Ensure expired is removed if not expired
+                    hoursDisplay.classList.remove("expired-timer");
+                    minutesDisplay.classList.remove("expired-timer");
+                    secondsDisplay.classList.remove("expired-timer");
+
+                }, 1000);
+          </script>
+        </div>
+    </div>
+
+    <div class="sponsors-section pixel-border">
+        <h2 class="section-title">Our Valued Sponsors</h2>
+        <div class="sponsor-category">
+          	<h3 class="category-title" style="color: purple;">Platinum Sponsors</h3>
+            <div class="sponsor-grid">
+                <div class="sponsor-card platinum-card">
+                    <img src="/files/ffa333ad077fb93e372973e6f7f01d67/OffSec_Tagline_White_Text.png" alt="Platinum Sponsor 1" class="sponsor-logo pixelated-image">
+                    <p class="sponsor-name terminal-text" style="color: purple;">Offensive Security</p>
+                </div>
+            </div>
+            <h3 class="category-title">Silver Sponsors</h3>
+            <div class="sponsor-grid">
+                <div class="sponsor-card pixel-card">
+                    <img src="/files/aa340ffeed64da5b654c5b525ddcf6c0/AlteredSecurity.png" alt="Silver Sponsor 1" class="sponsor-logo pixelated-image">
+                    <p class="sponsor-name terminal-text">AlteredSecurity</p>
+                </div>
+                <div class="sponsor-card pixel-card">
+                    <img src="/files/9e8f61a8aa9c03be59df6fcc5063ea15/OtterSec.webp" alt="Silver Sponsor 2" class="sponsor-logo pixelated-image">
+                    <p class="sponsor-name terminal-text">OtterSec</p>
+                </div>
+                </div>
+			<h3 class="category-title">Certificate Sponsor</h3> 
+            <div class="sponsor-grid">
+                <div class="sponsor-card pixel-card">
+                    <img src="/files/2dd4b2a8c199d940425aa54cf30022eb/givemycertificate.png" alt="Certificate Sponsor 1" class="sponsor-logo pixelated-image">
+                    <p class="sponsor-name terminal-text">GiveMyCertificate</p>
+                </div>
+          </div>
+         
+        </div>
+        </div>
+
+    <div class="prizes-section pixel-border">
+        <h2 class="section-title">Prizes</h2>
+        <div class="prize-grid">
+            <div class="prize-card pixel-card">
+                <div class="prize-rank">1st Place</div>
+                <p class="prize-details terminal-text">1x SEC-100 + 1xCRTP Voucher + BlitzCTF Goodies Kit (Coffee Mug, Mousepad, Stickers)</p>
+            </div>
+            <div class="prize-card pixel-card">
+                <div class="prize-rank">2nd Place</div>
+                <p class="prize-details terminal-text">1x SEC-100 + BlitzCTF Goodies Kit (Coffee Mug, Mousepad, Stickers)</p>
+            </div>
+             <div class="prize-card pixel-card">
+                <div class="prize-rank">3rd Place</div>
+                <p class="prize-details terminal-text">1x CRTP + BlitzCTF Goodies Kit (Coffee Mug, Mousepad, Stickers)</p>
+            </div>
+             <div class="prize-card pixel-card">
+                <div class="prize-rank">4th - 5th Place</div>
+                <p class="prize-details terminal-text">BlitzCTF Goodies Kit (Coffee Mug, Mousepad, Stickers)</p>
+            </div>
+            <div class="prize-card pixel-card">
+                <div class="prize-rank">6th - 10th Place</div>
+                <p class="prize-details terminal-text">BlitzCTF Goodies Kit (Mousepad, Stickers)</p>
+            </div>
+        </div>
+    </div>
+
+<div class="challenge-creators-section pixel-border">
+        <h2 class="section-title">Meet our team</h2>
+        <div class="creator-grid">
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/Inv1s1bl3.png" alt="Creator 0" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Inv1s1bl3</p>
+                <p class="creator-role terminal-text">CTFd Dev, Author, Admin</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/5h1kh4r.png" alt="Creator 1" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">5h1kh4r</p>
+                <p class="creator-role terminal-text">CTFd Dev, Author, Admin</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/raviyelna.jpg" alt="Creator 2" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">raviyelna</p>
+                <p class="creator-role terminal-text">Mod, Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/0x1337.png" alt="Creator 3" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">0x1337</p>
+                <p class="creator-role terminal-text">Mod, Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/alter.jpg" alt="Creator 4" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Kaiz0r</p>
+                <p class="creator-role terminal-text">Staff, Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/Deit.png" alt="Creator 5" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Deit</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/shadowh.jpg" alt="Creator 6" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Shadowh</p>
+                <p class="creator-role terminal-text">Staff,Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/Zwique.png" alt="Creator 7" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Zwique</p>
+                <p class="creator-role terminal-text">Staff,Author</p>
+            </div>     
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/B3arnoob.webp" alt="Creator 8" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">B34RN00B</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/Ziru.jpg" alt="Creator 9" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Ziru</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/rahisec.jpeg" alt="Creator 10" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">rahisec</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/ym00b.png" alt="Creator 11" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">ym00b</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/an0nbil.jpg" alt="Creator 12" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">an0nbil</p>
+                <p class="creator-role terminal-text">Media, Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/vedved.png" alt="Creator 13" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">vedved</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/a_b.png" alt="Creator 14" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">a_b</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>      
+            <div class="creator-card pixel-card">
+                <img src="https://blitzhack.xyz/assets/images/member_logo/mage.jpeg" alt="Creator 15" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">mage</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>   
+            <div class="creator-card pixel-card">
+                <img src="/files/68673677ac5d9e34a62d446ceb55bdbd/demonster.jpg" alt="Creator 16" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">Demonster</p>
+                <p class="creator-role terminal-text">Author</p>
+            </div>   
+            <div class="creator-card pixel-card">
+                <img src="/files/3531c9361d9c6c6ad557b6126ad9523a/vooc.webp" alt="Media Team" class="creator-avatar pixelated-image">
+                <p class="creator-name terminal-text">_vooc_</p>
+                <p class="creator-role terminal-text">Media</p>
+            </div>   
+            </div>
+    </div>
+</div>
+
+<style>
+    /* Import Google Fonts for 'Press Start 2P' */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    /* Define your core color palette */
+    :root {
+        --dark-bg: #1a1a1a;
+        --panel-bg-start: #2a2a2a;
+        --panel-bg-end: #3c3c3c;
+        --border-color-dark: #555555;
+        --shadow-color-dark: #222222;
+        --gold-main: #FFD700; /* Yellow-gold */
+        --gold-shadow: #8B7500; /* Darker gold for shadows/borders */
+        --red-main: #AA0000;
+        --red-shadow: #8B0000;
+        --blue-main: #4A90E2; /* Lighter blue */
+        --blue-shadow: #2A5DB0; /* Darker blue */
+        --text-light: #CCCCCC;
+        --text-darker: #999999;
+        --pixel-size: 2px; /* Define a base pixel unit for consistency */
+        --card-bg-darker: #1e1e1e; /* Even darker for some card backgrounds */
+    }
+
+    /* General body styling for background and font */
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Pixelated image rendering */
+    .pixelated-image {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+
+    /* Terminal-like text styling */
+    .terminal-text {
+        text-shadow: 0 0 5px rgba(255, 255, 0, 0.2); /* Subtle yellow glow */
+        word-wrap: break-word;
+    }
+
+    /* Main container for the home page content */
+    .home-container {
+        max-width: 3000px; /* Increased max-width */
+        margin: 2.5rem auto; /* More margin top/bottom */
+        padding: 30px; /* Increased internal padding */
+        background: linear-gradient(135deg, var(--panel-bg-start), var(--panel-bg-end));
+        border: var(--pixel-size) solid var(--border-color-dark);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--shadow-color-dark);
+        border-radius: calc(var(--pixel-size) * 5); /* Slightly more rounded, still pixelated */
+        display: flex;
+        flex-direction: column;
+        gap: 4rem; /* Increased space between sections */
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Scanline Overlay Effect (Optional) */
+    .home-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.1) 0px,
+            rgba(0, 0, 0, 0.1) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Shared pixel-art border/shadow for all main content blocks */
+    .pixel-border {
+        border: var(--pixel-size) solid var(--gold-shadow);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--dark-bg);
+        border-radius: calc(var(--pixel-size) * 3);
+        background-color: var(--panel-bg-end);
+        padding: 25px; /* Consistent padding for sections */
+        transition: all 0.1s ease-in-out;
+    }
+
+    /* Shared pixel-art style for cards */
+    .pixel-card {
+        border: var(--pixel-size) solid var(--border-color-dark);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--shadow-color-dark);
+        border-radius: calc(var(--pixel-size) * 2);
+        background-color: var(--card-bg-darker); /* Darker background for cards */
+        transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    }
+
+    .pixel-card:hover {
+        transform: translate(calc(var(--pixel-size) * -1), calc(var(--pixel-size) * -1));
+        box-shadow: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 var(--blue-shadow);
+    }
+
+    /* Header section containing description and timer */
+    .header-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Changed for vertical alignment */
+        flex-wrap: wrap;
+        min-height: 320px; /* More height for the header */
+        padding: 30px; /* Increased internal padding for breathing room */
+        background: var(--panel-bg-end); /* Ensure background fills increased height */
+    }
+
+    .blitzctf-description {
+        text-align: center;
+        margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .blitzctf-title {
+        color: var(--gold-main);
+        text-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+        font-size: 32px; /* Larger title */
+        margin-bottom: 2.5rem; /* Increased space below title */
+        text-align: left; /* Align to left to match screenshot */
+        letter-spacing: 3px; /* More distinct letters */
+        position: relative;
+        animation: glitch 2s infinite;
+    }
+
+    .blitzctf-title::before,
+    .blitzctf-title::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .blitzctf-title::before {
+        animation: glitch-1 0.5s infinite;
+        color: #ff0000;
+        z-index: -1;
+    }
+
+    .blitzctf-title::after {
+        animation: glitch-2 0.5s infinite;
+        color: #00ffff;
+        z-index: -2;
+    }
+
+    @keyframes glitch {
+        0%, 100% { transform: translate(0); }
+        20% { transform: translate(-2px, 2px); }
+        40% { transform: translate(-2px, -2px); }
+        60% { transform: translate(2px, 2px); }
+        80% { transform: translate(2px, -2px); }
+    }
+
+    @keyframes glitch-1 {
+        0%, 100% { transform: translate(0); }
+        10% { transform: translate(-2px, -1px); }
+        20% { transform: translate(-1px, 2px); }
+        30% { transform: translate(1px, -1px); }
+        40% { transform: translate(-1px, 1px); }
+    }
+
+    @keyframes glitch-2 {
+        0%, 100% { transform: translate(0); }
+        15% { transform: translate(2px, 1px); }
+        25% { transform: translate(1px, -2px); }
+        35% { transform: translate(-2px, 1px); }
+        45% { transform: translate(1px, -1px); }
+    }
+
+
+    .description-text {
+        font-size: 16px; /* Larger text for readability */
+        line-height: 1.8; /* More line height for readability */
+        text-align: justify;
+    }
+
+    .ctfd-timer-container {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Center the timer box horizontally within its container */
+        align-items: center; /* Center vertically */
+    }
+
+    .timer-box {
+        padding: 25px; /* More padding inside the timer box */
+        text-align: center; /* Center content horizontally */
+        width: 200%;
+        max-width: 600px;
+        margin: 0 auto;
+        min-height: 150px; /* Give timer box more height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: var(--dark-bg); /* Darker background for timer box to stand out */
+        border: var(--pixel-size) solid var(--gold-main); /* Gold border for timer */
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow); /* Red shadow for timer */
+    }
+
+    .timer-title {
+        color: #DBE9F4;
+        font-size: 20px; /* Larger timer title */
+        margin-bottom: 1.2rem;
+        text-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+    }
+
+    .timer-digit-wrapper {
+        display: flex;
+        flex-wrap: nowrap; /* Keep digits on a single line */
+        justify-content: center;
+        gap: 10px; /* Space between time units (e.g., "14d" and "20h") */
+        font-weight: bold;
+    }
+
+    .timer-digit {
+        display: inline-block;
+        background: linear-gradient(to bottom, var(--panel-bg-start) 50%, var(--dark-bg) 50%);
+        border: 1px solid var(--gold-shadow);
+        box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        padding: 8px 12px;
+        font-size: 36px;
+        color: var(--gold-main);
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        line-height: 1;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        perspective: 200px;
+    }
+
+    .timer-digit::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--border-color-dark);
+        z-index: 2;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .timer-digit.flipping {
+        animation: flip-animation 0.6s ease-in-out;
+    }
+
+    @keyframes flip-animation {
+        0% { transform: rotateX(0deg); }
+        50% { 
+            transform: rotateX(-90deg);
+            background: linear-gradient(to bottom, var(--dark-bg) 50%, var(--panel-bg-start) 50%);
+        }
+        100% { transform: rotateX(0deg); }
+    }
+    
+    @keyframes blink-timer-digits {
+        50% { opacity: 0.9; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
+    }
+
+    .active-timer {
+        color: #00FF00; /* Green for active CTF */
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.8),
+                     0 0 20px rgba(0, 255, 0, 0.4);
+        animation: blink-active-timer 1s infinite step-end;
+    }
+
+    @keyframes blink-active-timer {
+        50% { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 255, 0, 0.6); }
+    }
+
+    .expired-timer {
+        color: var(--red-main);
+        text-shadow: 0 0 10px var(--red-main), 0 0 20px rgba(170, 0, 0, 0.4);
+        animation: none; /* Stop blinking when expired */
+    }
+
+    .expired-timer-box {
+        border: var(--pixel-size) solid var(--red-main);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+    }
+
+    /* Section titles */
+    .section-title {
+        color: var(--gold-main);
+        text-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+        font-size: 24px; /* Larger section titles */
+        margin-bottom: 2rem; /* More space below section titles */
+        text-align: center;
+        border-bottom: var(--pixel-size) dashed var(--border-color-dark);
+        padding-bottom: 1rem; /* More padding below line */
+        letter-spacing: 1px;
+    }
+
+    /* Sponsors Section */
+    .sponsors-section {
+        padding: 30px; /* Increased padding */
+    }
+
+    .sponsor-category {
+        margin-bottom: 3rem; /* More space between categories */
+    }
+
+    .category-title {
+        color: var(--blue-main);
+        font-size: 20px; /* Larger category titles */
+        margin-bottom: 1.5rem; /* More space below category title */
+        text-align: center;
+        text-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+    }
+
+    .sponsor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Slightly wider min for sponsors */
+        gap: 30px; /* Increased gap between sponsor cards */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sponsor-card {
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 140px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--card-bg-darker), var(--panel-bg-start));
+    }
+
+    .sponsor-card::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--gold-main), var(--blue-main), var(--gold-main));
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .sponsor-card:hover::before {
+        opacity: 1;
+    }
+
+    .sponsor-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 4px 4px 0 var(--gold-shadow);
+        animation: pixel-glow 1.5s infinite alternate;
+    }
+
+    @keyframes pixel-glow {
+        0% { filter: brightness(1); }
+        100% { filter: brightness(1.2) contrast(1.1); }
+    }
+
+    .sponsor-logo {
+        max-width: 100%;
+        max-height: 90px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        filter: contrast(1.1) saturate(0.9);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .sponsor-card:hover .sponsor-logo {
+        filter: contrast(1.3) saturate(1.2) brightness(1.1);
+        border: 2px solid var(--gold-main);
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .sponsor-name {
+        font-size: 13px;
+        color: var(--text-light);
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .sponsor-card:hover .sponsor-name {
+        color: var(--gold-main);
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        transform: translateY(-2px);
+    }
+
+    .sponsor-card::after {
+        content: '';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 8px;
+        height: 8px;
+        background: var(--blue-main);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        box-shadow: 0 0 4px var(--blue-main);
+    }
+
+    .sponsor-card:hover::after {
+        opacity: 1;
+        animation: pixel-blink 1s infinite;
+    }
+
+    @keyframes pixel-blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0.3; }
+    }
+
+    .sponsor-name {
+        font-size: 13px; /* Slightly larger sponsor name */
+        color: var(--text-light);
+    }
+
+    /* Prizes Section */
+    .prizes-section {
+        padding: 30px; /* Increased padding */
+    }
+
+    .prize-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px; /* Increased gap between prize cards */
+    }
+
+    .prize-card {
+        padding: 25px; /* More padding inside prize cards */
+        text-align: center;
+        flex: 1;
+        min-width: 300px; /* Increased min-width */
+        max-width: 400px; /* Increased max-width */
+        border: var(--pixel-size) solid var(--blue-main);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--blue-shadow);
+        background-color: var(--card-bg-darker);
+    }
+
+    .prize-card:hover {
+        transform: translate(calc(var(--pixel-size) * -1), calc(var(--pixel-size) * -1));
+        box-shadow: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 var(--gold-main);
+    }
+
+    .prize-rank {
+        color: var(--gold-main);
+        font-size: 20px; /* Larger prize rank */
+        font-weight: bold;
+        margin-bottom: 1rem; /* More space below rank */
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    .prize-details {
+        font-size: 14px; /* Larger prize details text */
+        line-height: 1.6;
+    }
+
+    /* Challenge Creators Section */
+    .challenge-creators-section {
+        padding: 30px; /* Increased padding */
+    }
+
+    .creator-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Slightly wider min for creators */
+        gap: 25px; /* Increased gap between creator cards */
+        justify-content: center;
+    }
+
+    .creator-card {
+        padding: 15px; /* More padding inside creator cards */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 150px; /* Increased height */
+        justify-content: space-between;
+    }
+
+    .creator-avatar {
+        width: 80px; /* Larger avatars */
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: var(--pixel-size) solid var(--gold-main);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--gold-shadow);
+    }
+
+    .creator-name {
+        font-size: 12px; /* Slightly larger name */
+        font-weight: bold;
+        color: var(--gold-main);
+        margin-bottom: 6px;
+        text-shadow: 0 0 4px rgba(255, 215, 0, 0.4);
+    }
+
+    .creator-role {
+        font-size: 11px; /* Slightly larger role */
+        color: var(--text-darker);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        .home-container {
+            max-width: 95%; /* Adjust for smaller large screens */
+            padding: 25px;
+            gap: 3rem;
+        }
+
+        .header-section {
+            min-height: 280px;
+            padding: 25px;
+        }
+        .blitzctf-title {
+            font-size: 28px;
+        }
+        .description-text {
+            font-size: 15px;
+        }
+        .timer-digit {
+            font-size: 32px;
+            padding: 8px 12px;
+        }
+        .timer-box {
+            min-width: 280px;
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header-section {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: unset;
+            padding: 20px;
+        }
+
+        .blitzctf-description {
+            width: 100%;
+            min-width: unset;
+            margin-right: 0; /* Remove right margin on small screens */
+            padding-right: 0; /* Also ensure no extra padding */
+        }
+
+        .ctfd-timer-container {
+            width: 100%;
+            min-width: unset;
+            justify-content: center; /* Center timer box on small screens */
+            padding-left: 0;
+        }
+
+        .blitzctf-title {
+            font-size: 24px;
+            text-align: center; /* Center title on small screens */
+        }
+
+        .description-text {
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left; /* Keep justified on smaller if space allows, or left */
+        }
+
+        .timer-box {
+            min-width: unset; /* Allow to shrink */
+            padding: 15px;
+        }
+
+        .timer-title {
+            font-size: 18px;
+        }
+        .timer-digit {
+            font-size: 28px;
+            padding: 6px 10px;
+        }
+        .timer-digit-wrapper {
+            gap: 10px;
+            flex-wrap: wrap; /* Allow wrapping on very small screens if needed */
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 16px;
+        }
+
+        .sponsor-grid, .prize-grid, .creator-grid {
+            gap: 20px;
+        }
+
+        .prize-card {
+            min-width: 80%;
+        }
+
+        .home-container {
+            margin: 1.5rem auto;
+            border-radius: calc(var(--pixel-size) * 2);
+            padding: 20px;
+            gap: 2.5rem;
+        }
+
+        .pixel-border, .pixel-card {
+            border-width: 1px;
+            box-shadow: 1px 1px 0 var(--shadow-color-dark);
+            border-radius: var(--pixel-size);
+        }
+
+        .pixel-card:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0 var(--blue-shadow);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .home-container {
+            padding: 15px;
+            gap: 2rem;
+        }
+
+        .blitzctf-title {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .description-text {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .timer-title {
+            font-size: 16px;
+        }
+        .timer-digit {
+            font-size: 24px;
+            padding: 5px 8px;
+            gap: 8px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            letter-spacing: normal;
+        }
+
+        .category-title {
+            font-size: 14px;
+        }
+
+        .sponsor-grid, .creator-grid {
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .creator-avatar {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .prize-card {
+            min-width: unset;
+            flex-basis: 100%;
+        }
+    }
+</style>

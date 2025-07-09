@@ -1,0 +1,489 @@
+<div class="home-container">
+    <div class="header-section pixel-border">
+        <div class="blitzctf-description">
+            <h1 class="blitzctf-title">BlitzCTF 2025 // Operational Directives</h1>
+            <p class="description-text terminal-text">Welcome, Operative! To ensure a fair and thrilling competition, adhere to these directives. Failure to comply will result in immediate disqualification and forfeiture of all progress.</p>
+        </div>
+        <div class="ctfd-timer-container">
+            <div class="timer-box pixel-border">
+                <h2 id="timer-title" class="timer-title">CTF Status</h2>
+                <div id="ctfd-timer-display" class="timer-digit-wrapper">
+                    <span class="timer-digit expired-timer">ACTIVE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    ---------------------------------------------------------------------------------------
+
+    <div class="rules-section pixel-border">
+        <h2 class="section-title">// 0x01 General Rules</h2>
+        <ul class="rules-list terminal-text">
+            <li><strong class="rule-highlight">Honor Code Compliance:</strong> Participants must adhere to the **Honor Code** detailed below.</li>
+            <li><strong class="rule-highlight">No Cheating:</strong> Participants must not engage in any form of cheating, including but not limited to exploiting vulnerabilities, sharing flags or solutions, or collaborating with others outside their team.</li>
+            <li><strong class="rule-highlight">Infrastructure Integrity:</strong> Do not attack or disrupt the competition infrastructure. If you discover any vulnerabilities, report them immediately to the organizers.</li>
+            <li><strong class="rule-highlight">Respect:</strong> Respect other participants and their efforts. Any form of harassment, abuse, or unsportsmanlike conduct will not be tolerated.</li>
+            <li><strong class="rule-highlight">Final Decisions:</strong> The decision of the organizers regarding any disputes or rule violations is final.</li>
+            <li><strong class="rule-highlight">Eligibility for Prizes:</strong> Participants who are currently studying in school/college are eligible for prizes and must provide proof if they win. Even if you are not a student, you can participate but will not be eligible for prizes.</li>
+           <li><strong class="rule-highlight">Team Limit:</strong> Team limit is set to 4 members.</li>
+          	
+            <li>Have fun and good luck!</li>
+        </ul>
+    </div>
+
+    ---------------------------------------------------------------------------------------
+
+    <div class="honor-code-section pixel-border">
+        <h2 class="section-title">// 0x02 Honor Code</h2>
+        <ul class="rules-list terminal-text">
+            <li>I will play fairly and honestly, without cheating or exploiting.</li>
+            <li>I will respect the rules and guidelines set forth by the organizers.</li>
+            <li>I will not engage in any actions that may harm the competition or its participants.</li>
+            <li>I will uphold the principles of sportsmanship and integrity throughout the competition.</li>
+        </ul>
+    </div>
+
+    ---------------------------------------------------------------------------------------
+
+    <div class="contact-section pixel-border">
+        <h2 class="section-title">// 0x03 Contact & Support</h2>
+        <p class="terminal-text contact-text">If you have any questions or concerns regarding the rules or anything else related to the competition, please contact the organizers:</p>
+        <p class="terminal-text contact-link"><strong class="rule-highlight">Email:</strong> <a href="mailto:contact@blitzhack.xyz" class="contact-email">contact@blitzhack.xyz</a></p>
+        <p class="terminal-text contact-link"><strong class="rule-highlight">Discord:</strong> Open a ticket on our server: <a href="https://discord.gg/blitzctf" target="_blank" rel="noopener noreferrer" class="contact-discord">discord.gg/blitzctf</a></p>
+    </div>
+</div>
+
+<style>
+    /* Import Google Fonts for 'Press Start 2P' */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    /* Define your core color palette */
+    :root {
+        --dark-bg: #1a1a1a;
+        --panel-bg-start: #2a2a2a;
+        --panel-bg-end: #3c3c3c;
+        --border-color-dark: #555555;
+        --shadow-color-dark: #222222;
+        --gold-main: #FFD700; /* Yellow-gold */
+        --gold-shadow: #8B7500; /* Darker gold for shadows/borders */
+        --red-main: #AA0000;
+        --red-shadow: #8B0000;
+        --blue-main: #4A90E2; /* Lighter blue */
+        --blue-shadow: #2A5DB0; /* Darker blue */
+        --text-light: #CCCCCC;
+        --text-darker: #999999;
+        --pixel-size: 2px; /* Define a base pixel unit for consistency */
+        --card-bg-darker: #1e1e1e; /* Even darker for some card backgrounds */
+    }
+
+    /* General body styling for background and font */
+    body {
+        font-family: 'Press Start 2P', cursive;
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Pixelated image rendering */
+    .pixelated-image {
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+    }
+
+    /* Terminal-like text styling */
+    .terminal-text {
+        text-shadow: 0 0 5px rgba(255, 255, 0, 0.2); /* Subtle yellow glow */
+        word-wrap: break-word;
+    }
+
+    /* Main container for the home page content */
+    .home-container {
+        max-width: 3000px; /* Increased max-width */
+        margin: 2.5rem auto; /* More margin top/bottom */
+        padding: 30px; /* Increased internal padding */
+        background: linear-gradient(135deg, var(--panel-bg-start), var(--panel-bg-end));
+        border: var(--pixel-size) solid var(--border-color-dark);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--shadow-color-dark);
+        border-radius: calc(var(--pixel-size) * 5); /* Slightly more rounded, still pixelated */
+        display: flex;
+        flex-direction: column;
+        gap: 4rem; /* Increased space between sections */
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Scanline Overlay Effect (Optional) */
+    .home-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.1) 0px,
+            rgba(0, 0, 0, 0.1) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Shared pixel-art border/shadow for all main content blocks */
+    .pixel-border {
+        border: var(--pixel-size) solid var(--gold-shadow);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--dark-bg);
+        border-radius: calc(var(--pixel-size) * 3);
+        background-color: var(--panel-bg-end);
+        padding: 25px; /* Consistent padding for sections */
+        transition: all 0.1s ease-in-out;
+    }
+
+    /* Shared pixel-art style for cards */
+    .pixel-card {
+        border: var(--pixel-size) solid var(--border-color-dark);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--shadow-color-dark);
+        border-radius: calc(var(--pixel-size) * 2);
+        background-color: var(--card-bg-darker); /* Darker background for cards */
+        transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    }
+
+    .pixel-card:hover {
+        transform: translate(calc(var(--pixel-size) * -1), calc(var(--pixel-size) * -1));
+        box-shadow: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) 0 var(--blue-shadow);
+    }
+
+    /* Header section containing description and timer */
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Changed for vertical alignment */
+        flex-wrap: wrap;
+        min-height: 320px; /* More height for the header */
+        padding: 30px; /* Increased internal padding for breathing room */
+        background: var(--panel-bg-end); /* Ensure background fills increased height */
+    }
+
+    .blitzctf-description {
+        flex: 2;
+        min-width: 400px; /* Ensure description has enough space */
+        margin-right: 40px; /* Increased space between text and timer */
+        text-align: left; /* Ensure text alignment for title and description */
+    }
+
+    .blitzctf-title {
+        color: var(--gold-main);
+        text-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+        font-size: 32px; /* Larger title */
+        margin-bottom: 2.5rem; /* Increased space below title */
+        text-align: left; /* Align to left to match screenshot */
+        letter-spacing: 3px; /* More distinct letters */
+    }
+
+    .description-text {
+        font-size: 16px; /* Larger text for readability */
+        line-height: 1.8; /* More line height for readability */
+        text-align: justify;
+    }
+
+    .ctfd-timer-container {
+        flex: 1; /* Allow to take up available space */
+        display: flex;
+        justify-content: center; /* Center the timer box horizontally within its container */
+        align-items: center; /* Center vertically */
+    }
+
+    .timer-box {
+        padding: 25px; /* More padding inside the timer box */
+        text-align: center; /* Center content horizontally */
+        min-width: 300px; /* Make timer box significantly wider */
+        min-height: 150px; /* Give timer box more height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: var(--dark-bg); /* Darker background for timer box to stand out */
+        border: var(--pixel-size) solid var(--gold-main); /* Gold border for timer */
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow); /* Red shadow for timer */
+    }
+
+    .timer-title {
+        color: var(--blue-main);
+        font-size: 20px; /* Larger timer title */
+        margin-bottom: 1.2rem;
+        text-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+    }
+
+    .timer-digit-wrapper {
+        display: flex;
+        flex-wrap: nowrap; /* Keep digits on a single line */
+        justify-content: center;
+        gap: 10px; /* Space between time units (e.g., "14d" and "20h") */
+        font-weight: bold;
+    }
+
+    .timer-digit {
+        display: inline-block;
+        background-color: var(--panel-bg-start); /* Background to simulate flip card */
+        border: 1px solid var(--gold-shadow); /* Thin border for segments */
+        box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+        padding: 8px 12px; /* Padding for each digit group */
+        font-size: 36px; /* Slightly adjusted font size */
+        color: var(--gold-main);
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), /* Stronger glow for digits */
+                     0 0 20px rgba(255, 215, 0, 0.4);
+        line-height: 1; /* Keep line height tight for blocky digits */
+        animation: blink-timer-digits 1s infinite step-end; /* Subtle blinking */
+        white-space: nowrap; /* Prevent individual digits from wrapping */
+    }
+    
+    @keyframes blink-timer-digits {
+        50% { opacity: 0.9; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
+    }
+
+    .active-timer {
+        color: #00FF00; /* Green for active CTF */
+        text-shadow: 0 0 10px rgba(0, 255, 0, 0.8),
+                     0 0 20px rgba(0, 255, 0, 0.4);
+        animation: blink-active-timer 1s infinite step-end;
+    }
+
+    @keyframes blink-active-timer {
+        50% { opacity: 0.9; text-shadow: 0 0 8px rgba(0, 255, 0, 0.6); }
+    }
+
+    .expired-timer {
+        color: var(--red-main);
+        text-shadow: 0 0 10px var(--red-main), 0 0 20px rgba(170, 0, 0, 0.4);
+        animation: none; /* Stop blinking when expired */
+    }
+
+    .expired-timer-box {
+        border: var(--pixel-size) solid var(--red-main);
+        box-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+    }
+
+    /* Section titles */
+    .section-title {
+        color: var(--gold-main);
+        text-shadow: var(--pixel-size) var(--pixel-size) 0 var(--red-shadow);
+        font-size: 24px; /* Larger section titles */
+        margin-bottom: 2rem; /* More space below section titles */
+        text-align: center;
+        border-bottom: var(--pixel-size) dashed var(--border-color-dark);
+        padding-bottom: 1rem; /* More padding below line */
+        letter-spacing: 1px;
+    }
+
+    /* New styles for the rules, honor code, and contact sections */
+    .rules-section, .honor-code-section, .contact-section {
+        padding: 30px;
+    }
+
+    .rules-list {
+        list-style-type: none; /* Remove default bullet points */
+        padding: 0;
+        margin: 0;
+    }
+
+    .rules-list li {
+        margin-bottom: 1.5rem; /* Space between rules */
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--text-light);
+        padding-left: 20px; /* Indent for custom bullet */
+        position: relative;
+    }
+
+    .rules-list li:last-child {
+        margin-bottom: 0;
+    }
+
+    .rules-list li::before {
+        content: '\25B6'; /* Pixelated right arrow */
+        color: var(--blue-main);
+        font-size: 18px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+    }
+
+    .rule-highlight {
+        color: var(--gold-main); /* Highlight key rule phrases */
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    }
+
+    .contact-text {
+        margin-bottom: 1.5rem;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .contact-link {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 0.8rem;
+    }
+
+    .contact-link:last-child {
+        margin-bottom: 0;
+    }
+
+    .contact-email, .contact-discord {
+        color: var(--blue-main);
+        text-decoration: none;
+        font-weight: bold;
+        text-shadow: 0 0 5px rgba(74, 144, 226, 0.4);
+        transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+    }
+
+    .contact-email:hover, .contact-discord:hover {
+        color: var(--gold-main);
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Responsive Adjustments (Copying from your homepage CSS for consistency) */
+    @media (max-width: 1200px) {
+        .home-container {
+            max-width: 95%;
+            padding: 25px;
+            gap: 3rem;
+        }
+        .header-section {
+            min-height: 280px;
+            padding: 25px;
+        }
+        .blitzctf-title {
+            font-size: 28px;
+        }
+        .description-text {
+            font-size: 15px;
+        }
+        .timer-digit {
+            font-size: 32px;
+            padding: 8px 12px;
+        }
+        .timer-box {
+            min-width: 280px;
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header-section {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: unset;
+            padding: 20px;
+        }
+        .blitzctf-description {
+            width: 100%;
+            min-width: unset;
+            margin-right: 0;
+            padding-right: 0;
+        }
+        .ctfd-timer-container {
+            flex: 1;
+            width: 100%;
+            min-width: unset;
+            justify-content: center;
+            padding-left: 0;
+        }
+        .blitzctf-title {
+            font-size: 24px;
+            text-align: center;
+        }
+        .description-text {
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .timer-box {
+            min-width: unset;
+            width: 100%;
+            padding: 15px;
+        }
+        .timer-title {
+            font-size: 18px;
+        }
+        .timer-digit {
+            font-size: 28px;
+            padding: 6px 10px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .rules-list li {
+            font-size: 14px;
+        }
+        .contact-text, .contact-link {
+            font-size: 14px;
+        }
+        .home-container {
+            margin: 1.5rem auto;
+            border-radius: calc(var(--pixel-size) * 2);
+            padding: 20px;
+            gap: 2.5rem;
+        }
+        .pixel-border, .pixel-card {
+            border-width: 1px;
+            box-shadow: 1px 1px 0 var(--shadow-color-dark);
+            border-radius: var(--pixel-size);
+        }
+        .pixel-card:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0 var(--blue-shadow);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .home-container {
+            padding: 15px;
+            gap: 2rem;
+        }
+        .blitzctf-title {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        .description-text {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .timer-title {
+            font-size: 16px;
+        }
+        .timer-digit {
+            font-size: 24px;
+            padding: 5px 8px;
+            gap: 8px;
+        }
+        .section-title {
+            font-size: 18px;
+            letter-spacing: normal;
+        }
+        .rules-list li {
+            font-size: 12px;
+            padding-left: 15px;
+        }
+        .rules-list li::before {
+            font-size: 16px;
+        }
+        .contact-text, .contact-link {
+            font-size: 12px;
+        }
+    }
+</style>

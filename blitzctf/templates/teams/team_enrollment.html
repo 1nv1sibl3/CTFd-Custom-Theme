@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="team-enroll-panel">
+    <h1>Team</h1>
+    <div class="team-enroll-message">
+        <p>Welcome to {{ Configs.ctf_name }}!</p>
+        <p>In order to participate you must either join or create a team.</p>
+    </div>
+
+    {% if integrations.mlc() %}
+    <div class="team-enroll-row">
+        <a class="btn btn-primary" href="{{ url_for('auth.oauth_login') }}">Play with Official Team</a>
+    </div>
+    <div class="team-enroll-row split">
+        <a class="btn btn-light" href="{{ url_for('teams.join') }}">Join Unofficial Team</a>
+        <a class="btn btn-light" href="{{ url_for('teams.new') }}">Create Unofficial Team</a>
+    </div>
+    {% else %}
+    <div class="team-enroll-row split">
+        <a class="btn btn-primary" href="{{ url_for('teams.join') }}">Join Team</a>
+        <a class="btn btn-primary" href="{{ url_for('teams.new') }}">Create Team</a>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .team-enroll-panel {
+        max-width: 600px;
+        margin: 3rem auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border: 3px solid #555555;
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        font-family: 'Press Start 2P', monospace;
+        color: #CCCCCC;
+        text-align: center;
+    }
+
+    .team-enroll-panel h1 {
+        margin-bottom: 2rem;
+        color: #FFD700;
+        text-shadow: 2px 2px #8B0000;
+        font-size: 20px;
+    }
+
+    .team-enroll-message p {
+        margin: 0.5rem 0;
+        font-size: 14px;
+        color: #FFD700;
+    }
+
+    .team-enroll-row {
+        margin-top: 1.5rem;
+    }
+
+    .team-enroll-row.split {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .btn {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        padding: 12px 24px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        border: 2px solid transparent;
+        box-shadow: 2px 2px 0 #000000;
+        transition: background 0.3s ease;
+        color: #FFFFFF;
+        user-select: none;
+        text-align: center;
+        display: inline-block;
+        min-width: 140px;
+        min-height: 40px;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: #4A90E2;
+        border-color: #2A5DB0;
+        box-shadow: 2px 2px 0 #2A5DB0;
+    }
+
+    .btn-primary:hover {
+        background: #2A5DB0;
+        box-shadow: 2px 2px 5px #1A3A6D;
+    }
+
+    .btn-light {
+        background: #3C3C3C;
+        border-color: #8B7500;
+        color: #FFD700;
+        box-shadow: 2px 2px 0 #000000;
+    }
+
+    .btn-light:hover {
+        background: #505050;
+        box-shadow: 2px 2px 5px #222222;
+        color: #FFD700;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

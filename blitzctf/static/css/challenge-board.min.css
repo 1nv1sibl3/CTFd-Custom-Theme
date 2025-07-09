@@ -1,0 +1,423 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Main Container Styling */
+.container {
+    font-family: 'Press Start 2P', monospace;
+    color: #CCCCCC;
+}
+
+/* Jumbotron Header */
+.jumbotron {
+    background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+    border: 3px solid #555555;
+    box-shadow: 4px 4px 0 #222222;
+    border-radius: 8px;
+    color: #FFD700;
+    text-align: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.jumbotron h1 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 24px;
+    text-shadow: 2px 2px #8B0000;
+    margin: 0;
+}
+
+/* Challenge Board Container */
+#challenges-board {
+    background: #2a2a2a;
+    border: 2px solid #555555;
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 400px;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Loading Spinner */
+.spinner {
+    color: #FFD700;
+    text-shadow: 2px 2px #8B0000;
+}
+
+/* Challenge Categories */
+.challenge-category {
+    background: #3c3c3c;
+    border: 2px solid #8B7500;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    box-shadow: 2px 2px 0 #000000;
+}
+
+.challenge-category h3 {
+    color: #FFD700;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    text-align: center;
+    text-shadow: 1px 1px #8B0000;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* Challenge Buttons */
+.challenge-button {
+    background: linear-gradient(135deg, #4A90E2, #2A5DB0);
+    border: 2px solid #1A3A6D;
+    box-shadow: 3px 3px 0 #222222;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.challenge-button:hover {
+    background: linear-gradient(135deg, #2A5DB0, #1A3A6D);
+    box-shadow: 2px 2px 5px #000000;
+    transform: translate(1px, 1px);
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.challenge-desc {
+  white-space: normal;
+}
+
+.challenge-desc a {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* Solved Challenge State */
+.solved-challenge {
+    background: linear-gradient(135deg, #37d63e, #2a9e32) !important;
+    opacity: 0.6 !important;
+    border: 2px solid #1e5d23 !important;
+    box-shadow: 3px 3px 0 #1a1a1a !important;
+}
+
+.solved-challenge:hover {
+    background: linear-gradient(135deg, #2a9e32, #1e5d23) !important;
+    transform: translate(1px, 1px);
+}
+
+/* Challenge Check Mark */
+.corner-button-check {
+    margin-top: -10px;
+    margin-right: 25px;
+    position: absolute;
+    right: 0;
+    color: #37d63e;
+    font-size: 16px;
+    text-shadow: 1px 1px #1e5d23;
+}
+
+/* Challenge Value Display */
+.challenge-value {
+    color: #37d63e;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Press Start 2P', monospace;
+}
+
+/* Challenge Name Display */
+.challenge-name {
+    color: #FFD700;
+    font-size: 10px;
+    font-family: 'Press Start 2P', monospace;
+    text-shadow: 1px 1px #8B0000;
+}
+
+/* Challenge Tags */
+.challenge-tags .badge {
+    background: #4A90E2;
+    border: 1px solid #2A5DB0;
+    color: #FFFFFF;
+    font-size: 8px;
+    padding: 4px 8px;
+    margin: 2px;
+    font-family: 'Press Start 2P', monospace;
+    border-radius: 4px;
+}
+
+/* Modal Styling */
+.modal-content {
+    border-radius: 8px;
+    max-width: 1000px;
+    padding: 1.5rem;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+    border: 3px solid #555555;
+    box-shadow: 4px 4px 0 #222222;
+    color: #CCCCCC;
+    font-family: 'Press Start 2P', monospace;
+    overflow: clip;
+    overflow-wrap: anywhere;
+}
+
+/* Challenge Description */
+.chal-desc {
+    padding: 1rem;
+    font-size: 10px;
+    line-height: 1.4;
+    background: #3c3c3c;
+    border: 2px solid #555555;
+    border-radius: 4px;
+    color: #CCCCCC;
+    font-family: 'Press Start 2P', monospace;
+    margin: 1rem 0;
+}
+
+.chal-desc img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #555555;
+    border-radius: 4px;
+}
+
+/* Navigation Tabs */
+.nav-tabs {
+    border-bottom: 2px solid #555555;
+}
+
+.nav-tabs .nav-link {
+    background: #3c3c3c;
+    border: 2px solid #8B7500;
+    color: #FFD700;
+    font-size: 10px;
+    margin-right: 4px;
+    border-radius: 4px 4px 0 0;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.nav-tabs .nav-link.active {
+    background: #4A90E2;
+    border-color: #2A5DB0;
+    color: #FFFFFF;
+}
+
+/* Buttons */
+.badge-info, .btn-info {
+    background: #4A90E2 !important;
+    border: 2px solid #2A5DB0;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    box-shadow: 2px 2px 0 #1A3A6D;
+    border-radius: 4px;
+}
+
+.btn-info:hover {
+    background: #2A5DB0 !important;
+    box-shadow: 1px 1px 3px #000000;
+}
+
+.btn-file {
+    background: #37d63e !important;
+    border: 2px solid #2a9e32;
+    box-shadow: 2px 2px 0 #1e5d23;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+}
+
+.btn-file:hover {
+    background: #2a9e32 !important;
+    box-shadow: 1px 1px 3px #000000;
+}
+
+/* Form Elements */
+.challenge-input {
+    background: #3c3c3c;
+    border: 2px solid #8B7500;
+    color: #FFD700;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 8px;
+    box-shadow: 2px 2px 0 #000000;
+    border-radius: 4px;
+    width: 100%;
+    caret-color: #FFD700;
+;
+}
+.challenge-input:focus {
+    background: #3c3c3c;
+    border-color: #FFD700;
+    box-shadow: 0 0 8px #FFD700;
+    outline: none;
+    color: #FFD700;
+}
+
+.challenge-submit {
+    background: #37d63e;
+    border: 2px solid #2a9e32;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 12px 16px;
+    box-shadow: 2px 2px 0 #1e5d23;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.challenge-submit:hover {
+    background: #2a9e32;
+    box-shadow: 1px 1px 3px #000000;
+}
+
+.key-submit .btn {
+    height: 51px;
+    background: #37d63e;
+    border: 2px solid #2a9e32;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    box-shadow: 2px 2px 0 #1e5d23;
+    border-radius: 4px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.key-submit .btn:hover {
+    background: #2a9e32;
+    box-shadow: 1px 1px 3px #000000;
+}
+
+/* Close Button */
+.close {
+    color: #FFD700;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: none;
+    opacity: 1;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.close:hover {
+    color: #FF6B6B;
+}
+
+/* Tables */
+.table {
+    font-size: 8px;
+    background: #3c3c3c;
+    border: 2px solid #555555;
+    border-radius: 4px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.table th, .table td {
+    border-color: #555555;
+    color: #CCCCCC;
+    padding: 8px;
+}
+
+.table th {
+    background: #2a2a2a;
+    color: #FFD700;
+}
+
+/* Alert Messages */
+.alert {
+    font-size: 10px;
+    border-radius: 4px;
+    border: 2px solid;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.alert-success {
+    background: #37d63e;
+    border-color: #2a9e32;
+    color: #FFFFFF;
+}
+
+.alert-danger {
+    background: #FF6B6B;
+    border-color: #CC5555;
+    color: #FFFFFF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .jumbotron h1 {
+        font-size: 18px;
+    }
+    
+    .challenge-button {
+        font-size: 8px;
+        min-height: 60px;
+        padding: 8px;
+        margin: 4px;
+    }
+    
+    .modal-content {
+        padding: 1rem;
+    }
+}
+
+/* Custom Grid for Challenge Layout */
+.challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Animation for loading */
+@keyframes pixelPulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pixelPulse 1s infinite;
+}
+
+.challenge-button .challenge-name {
+    font-size: 9px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.challenge-button .challenge-value {
+    font-size: 8px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.submit-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.submit-row .col-md-9 {
+    flex: 1;
+}
+
+.submit-row .col-md-3 {
+    flex: 0 0 auto;
+}

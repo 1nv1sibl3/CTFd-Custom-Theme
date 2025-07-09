@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+<style>
+    .invite-panel {
+        max-width: 400px;
+        margin: 3rem auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+        border: 3px solid #555555;
+        box-shadow: 4px 4px 0 #222222;
+        border-radius: 8px;
+        font-family: 'Press Start 2P', monospace;
+        color: #CCCCCC;
+        text-align: center;
+    }
+
+    .invite-panel h1 {
+        margin-bottom: 2rem;
+        color: #FFD700;
+        text-shadow: 2px 2px #8B0000;
+        font-size: 20px;
+    }
+
+    .invite-panel p {
+        font-size: 12px;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .invite-panel p strong {
+        color: #FFD700;
+    }
+
+    .invite-panel .text-muted {
+        color: #999999 !important;
+        font-size: 10px;
+    }
+
+    .invite-panel a {
+        color: #4A90E2;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .invite-panel a:hover {
+        color: #FFD700;
+        text-decoration: underline;
+    }
+
+    .btn {
+        font-family: 'Press Start 2P', monospace;
+        font-size: 14px;
+        padding: 12px 24px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-transform: uppercase;
+        border: 2px solid transparent;
+        box-shadow: 2px 2px 0 #000000;
+        transition: background 0.3s ease;
+        color: #FFFFFF;
+        user-select: none;
+        text-align: center;
+        display: inline-block;
+        min-width: 140px;
+        min-height: 40px;
+    }
+
+    .btn-success {
+        background: #5CB85C;
+        border-color: #4CAE4C;
+        box-shadow: 2px 2px 0 #4CAE4C;
+    }
+
+    .btn-success:hover {
+        background: #4CAE4C;
+        box-shadow: 2px 2px 5px #357A35;
+    }
+
+    .btn-block {
+        width: 100%;
+        display: block;
+    }
+
+    .pt-3 {
+        padding-top: 1.5rem;
+    }
+
+    /* Override bootstrap jumbotron */
+    .jumbotron {
+        display: none;
+    }
+
+    .container {
+        max-width: none;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .col-md-6.offset-md-3 {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Join Team</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="invite-panel">
+					<h1>Join Team</h1>
+					
+					{% include "components/errors.html" %}
+
+					<p>
+						Welcome to <strong>{{ team.name }}</strong>!
+					</p>
+
+					<p>
+						Click the button below to join the team!
+						<br>
+						<small class="text-muted">
+							Or <a href="{{ url_for('teams.new') }}">click here</a> if you'd prefer to create your own team.
+						</small>
+					</p>
+
+					{% with form = Forms.teams.TeamInviteJoinForm() %}
+					<form method="POST">
+						<div class="row pt-3">
+							<div class="col-md-12">
+								{{ form.submit(class="btn btn-success btn-block") }}
+							</div>
+						</div>
+						{{ form.nonce() }}
+					</form>
+					{% endwith %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -1,0 +1,188 @@
+// Minecraft Colors
+:root {
+  // Core colors
+  --minecraft-dirt: #856043;
+  --minecraft-grass: #71aa34;
+  --minecraft-stone: #828282;
+  --minecraft-wood: #a0744c;
+  --minecraft-leaves: #568e3d;
+  
+  // UI colors
+  --ui-bg: rgba(0, 0, 0, 0.8);
+  --ui-border: #404040;
+  --ui-button: #6e6e6e;
+  --ui-button-hover: #8b8b8b;
+  --ui-text: #ffffff;
+  --ui-header: #ffff55;
+  
+  // Status colors
+  --status-success: #55ff55;
+  --status-error: #ff5555;
+  --status-warning: #ffaa00;
+  --status-info: #55ffff;
+}
+
+// Import Minecraft font
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/themes/idk-invi/static/fonts/Minecraft.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Global Reset
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
+
+// Base Styles
+html, body {
+  height: 100%;
+  font-family: 'Minecraft', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ui-text);
+  background: #000;
+  overflow-x: hidden;
+}
+
+// Minecraft Container
+.minecraft-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+// Minecraft Button
+.minecraft-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: 8px 16px;
+  font-family: 'Minecraft', monospace;
+  font-size: 16px;
+  color: var(--ui-text);
+  text-decoration: none;
+  text-shadow: 2px 2px #000;
+  background: var(--ui-button);
+  border: 2px solid #000;
+  cursor: pointer;
+  transition: all 0.1s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  &:hover {
+    background: var(--ui-button-hover);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Minecraft Input
+.minecraft-input {
+  width: 100%;
+  padding: 8px;
+  font-family: 'Minecraft', monospace;
+  font-size: 16px;
+  color: var(--ui-text);
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--ui-border);
+  outline: none;
+
+  &:focus {
+    border-color: var(--ui-header);
+  }
+}
+
+// Minecraft Panel
+.minecraft-panel {
+  background: var(--ui-bg);
+  border: 2px solid var(--ui-border);
+  padding: 16px;
+  margin-bottom: 16px;
+
+  h2 {
+    color: var(--ui-header);
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-shadow: 2px 2px #000;
+  }
+}
+
+// Minecraft Navigation
+.minecraft-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--ui-bg);
+  border-bottom: 2px solid var(--ui-border);
+
+  .nav-brand {
+    font-size: 24px;
+    color: var(--ui-header);
+    text-decoration: none;
+    text-shadow: 2px 2px #000;
+  }
+
+  .nav-items {
+    display: flex;
+    gap: 16px;
+  }
+}
+
+// Minecraft Footer
+.minecraft-footer {
+  text-align: center;
+  padding: 16px;
+  background: var(--ui-bg);
+  border-top: 2px solid var(--ui-border);
+  margin-top: auto;
+
+  a {
+    color: var(--ui-header);
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .minecraft-nav {
+    flex-direction: column;
+    gap: 16px;
+    
+    .nav-items {
+      flex-direction: column;
+      width: 100%;
+      
+      .minecraft-button {
+        width: 100%;
+      }
+    }
+  }
+}

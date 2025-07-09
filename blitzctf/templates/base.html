@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* Pixelated square cursor using inline SVG as a data URI */
+        html, body, * {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect x="2" y="2" width="12" height="12" fill="yellow" stroke="black" stroke-width="2"/></svg>') 8 8, auto !important;
+        }
+        .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 0, 64, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 70%, rgba(255, 255, 0, 0.2) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+    z-index: 9999;
+    
+}
+
+@keyframes loaderBg {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(30deg); }
+}
+        .glitch {
+        position: relative;
+        font-size: 25px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #fff;
+        letter-spacing: 5px;
+        z-index: 1;
+        animation: shift 1s ease-in-out infinite alternate;
+        }
+
+        .glitch:before,
+        .glitch:after {
+        display: block;
+        content: attr(data-glitch);
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.8;
+        }
+
+        .glitch:before {
+        animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        color: #8b00ff;
+        z-index: -1;
+        }
+
+        .glitch:after {
+        animation: glitch 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+        color: #00e571;
+        z-index: -2;
+        }
+
+        @keyframes glitch {
+        0% {
+            transform: translate(0);
+        }
+
+        20% {
+            transform: translate(-3px, 3px);
+        }
+
+        40% {
+            transform: translate(-3px, -3px);
+        }
+
+        60% {
+            transform: translate(3px, 3px);
+        }
+
+        80% {
+            transform: translate(3px, -3px);
+        }
+
+        to {
+            transform: translate(0);
+        }
+        }
+
+        @keyframes shift {
+        0%, 40%, 44%, 58%, 61%, 65%, 69%, 73%, 100% {
+            transform: skewX(0deg);
+        }
+
+        41% {
+            transform: skewX(10deg);
+        }
+
+        42% {
+            transform: skewX(-10deg);
+        }
+
+        59% {
+            transform: skewX(40deg) skewY(10deg);
+        }
+
+        60% {
+            transform: skewX(-40deg) skewY(-10deg);
+        }
+
+        63% {
+            transform: skewX(10deg) skewY(-5deg);
+        }
+
+        70% {
+            transform: skewX(-50deg) skewY(-20deg);
+        }
+
+        71% {
+            transform: skewX(10deg) skewY(-10deg);
+        }
+        }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title or Configs.ctf_name }}</title>
+    <link rel="shortcut icon" href="{{ Configs.ctf_small_icon }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+    <!-- Minecraft Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="{{ url_for('views.themes', path='css/base.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    {% block stylesheets %}{% endblock %}
+    
+    {{ meta | safe }}
+    
+    <script type="text/javascript">
+        var init = {};
+        init.urlRoot = "{{ request.script_root }}";
+        init.csrfNonce = "{{ Session.nonce }}";
+        init.userMode = "{{ Configs.user_mode }}";
+        init.userId = {{ Session.id | tojson }};
+        init.userName = {{ User.name | tojson }};
+        init.userEmail = {{ User.email | tojson }};
+        init.teamId = {{ Team.id | tojson }};
+        init.teamName = {{ Team.name | tojson }};
+        init.start = {{ Configs.start | tojson }};
+        init.end = {{ Configs.end | tojson }};
+        init.theme_settings = {{ Configs.theme_settings | tojson }};
+    </script>
+    
+    {{ Configs.theme_header }}
+</head>
+<body>
+    <div class="loader">
+    <div data-glitch="Initializing..." class="glitch">Initializing...</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var loader = document.querySelector('.loader');
+        var mainContent = document.querySelector('.minecraft-main');
+        if (mainContent) mainContent.style.filter = 'blur(6px)';
+        setTimeout(function() {
+            if (loader) loader.style.display = 'none';
+            if (mainContent) mainContent.style.filter = '';
+        }, 1000);
+        });
+    </script>
+    <!-- Minecraft Navigation -->
+    <nav class="minecraft-nav">
+        <div class="nav-container">
+            <a href="{{ url_for('views.static_html', route='/') }}" class="nav-brand">
+                {% if Configs.ctf_small_icon %}
+                    <img src="{{ Configs.ctf_small_icon }}" alt="Logo">
+                {% endif %}
+                {{ Configs.ctf_name }}
+            </a>
+            
+            <div class="nav-items">
+                    <!-- Challenges -->
+                    <a href="{{ url_for('challenges.listing') }}" 
+                       class="mc-button {% if request.path.startswith(url_for('challenges.listing')) %}active{% endif %}">
+                        Quests
+                    </a>
+                    
+                    <!-- Scoreboard -->
+                    {% if Configs.account_visibility != 'admins' and Configs.score_visibility != 'admins' %}
+                    <a href="{{ url_for('scoreboard.listing') }}" 
+                       class="mc-button {% if request.path == url_for('scoreboard.listing') %}active{% endif %}">
+                        Scores
+                    </a>
+                    {% endif %}
+                    
+                    <!-- Users -->
+                    {% if Configs.account_visibility != 'admins' %}
+                    <a href="{{ url_for('users.listing') }}" 
+                       class="mc-button {% if request.path == url_for('users.listing') %}active{% endif %}">
+                        Players
+                    </a>
+                    {% endif %}
+                    
+                    <!-- Teams -->
+                    {% if Configs.user_mode == 'teams' and Configs.account_visibility != 'admins' %}
+                    <a href="{{ url_for('teams.listing') }}" 
+                       class="mc-button {% if request.path == url_for('teams.listing') %}active{% endif %}">
+                        Guilds
+                    </a>
+                    {% endif %}
+                    
+                    <!-- Plugin Pages -->
+                    {% for page in Plugins.user_menu_pages %}
+                    <a href="{{ page.route }}" 
+                       class="mc-button {% if request.path == page.route %}active{% endif %}"
+                       {% if page.link_target %}target="{{ page.link_target }}"{% endif %}>
+                        {{ page.title }}
+                    </a>
+                    {% endfor %}
+                    
+                    <a href="https://discord.gg/blitzctf" 
+                       class="mc-button">
+                        Discord
+                    </a>
+                </div>
+
+                <div class="nav-controls">
+                    <!-- Authentication -->
+                    {% if not authed() %}
+                        {% if registration_visible() %}
+                        <a href="{{ url_for('auth.register') }}" 
+                           class="mc-button {% if request.path == url_for('auth.register') %}active{% endif %}">
+                            Register
+                        </a>
+                        {% endif %}
+                        <a href="{{ url_for('auth.login') }}" 
+                           class="mc-button {% if request.path == url_for('auth.login') %}active{% endif %}">
+                            Login
+                        </a>
+                    {% else %}
+                        <div class="mc-dropdown">
+                            <button class="mc-button">
+                                {{ User.name }}
+                                <span x-data x-show="$store.unread_count > 0" x-text="$store.unread_count" 
+                                      style="background: var(--mc-red); color: white; padding: 2px 4px; font-size: 8px; margin-left: 4px;">
+                                </span>
+                            </button>
+                            <div class="mc-dropdown-content">
+                                <a href="{{ url_for('users.private') }}">Profile</a>
+                                {% if Configs.user_mode == 'teams' %}
+                                <a href="{{ url_for('teams.private') }}">My Guild</a>
+                                {% endif %}
+                                <a href="{{ url_for('views.notifications') }}">Notifications</a>
+                                <a href="{{ url_for('views.settings') }}">Settings</a>
+                                {% if is_admin() %}
+                                <a href="{{ url_for('admin.view') }}">Admin</a>
+                                {% endif %}
+                                <a href="{{ url_for('auth.logout') }}">Logout</a>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Theme Controls -->
+                    <div class="theme-controls">
+                        <button id="theme-toggle" class="mc-button-icon mc-button" title="Toggle Theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                        <button id="sound-toggle" class="mc-button mc-button-icon" title="Toggle Sounds">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="minecraft-main">
+        <div class="main-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="minecraft-footer">
+        <div class="main-container">
+            <p>Powered by <a href="https://ctfd.io">CTFd</a></p>
+            <div class="team-credit">
+                BlitzCTF Theme by Team BlitzHack
+                <span style="display: inline-block; animation: pulseText 1s ease-in-out infinite alternate;">⚡</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Sound effects (basic implementation)
+        function playSound(type) {
+            if (localStorage.getItem('minecraft-sounds') !== 'disabled') {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                if (type === 'click') {
+                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+                } else if (type === 'hover') {
+                    oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                }
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            }
+        }
+
+        // Dropdown toggle
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+            
+            // Close dropdown when clicking outside
+            const closeDropdown = (e) => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            };
+            
+            if (dropdown.classList.contains('active')) {
+                // Wait for current click to finish before adding listener
+                setTimeout(() => {
+                    document.addEventListener('click', closeDropdown);
+                }, 0);
+            }
+        }
+
+        // Initialize UI
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.mc-button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => playSound('hover'));
+                button.addEventListener('click', () => playSound('click'));
+            });
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-theme');
+                    const isDark = document.body.classList.contains('dark-theme');
+                    localStorage.setItem('minecraft-theme', isDark ? 'dark' : 'light');
+                    const icon = this.querySelector('i');
+                    icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                });
+                
+                // Load saved theme
+                if (localStorage.getItem('minecraft-theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                const icon = themeToggle.querySelector('i');
+                icon.className = 'fas fa-sun';
+}
+            }
+
+            // Sound toggle
+            const soundToggle = document.getElementById('sound-toggle');
+            if (soundToggle) {
+                soundToggle.addEventListener('click', function() {
+                    const soundsEnabled = localStorage.getItem('minecraft-sounds') !== 'disabled';
+                    localStorage.setItem('minecraft-sounds', soundsEnabled ? 'disabled' : 'enabled');
+                    const icon = this.querySelector('i');
+                    icon.className = soundsEnabled ? 'fas fa-volume-mute' : 'fas fa-volume-up';
+                });
+                
+                // Load saved sound setting
+                if (localStorage.getItem('minecraft-sounds') === 'disabled') {
+                const icon = soundToggle.querySelector('i');
+                icon.className = 'fas fa-volume-mute';
+                }
+            }
+        });
+
+        // Dark theme styles
+        const darkThemeStyles = `
+            .dark-theme {
+                background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            }
+            .dark-theme .minecraft-nav,
+            .dark-theme .minecraft-footer {
+                background: #2a2a2a;
+            }
+            .dark-theme .mc-panel {
+                background: #4a4a4a;
+                color: var(--mc-text-light);
+            }
+            .dark-theme .mc-panel h1,
+            .dark-theme .mc-panel h2,
+            .dark-theme .mc-panel h3,
+            .dark-theme .mc-panel p {
+                color: var(--mc-text-light);
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = darkThemeStyles;
+        document.head.appendChild(styleSheet);
+
+    const dropdowns = document.querySelectorAll('.mc-dropdown');
+dropdowns.forEach(dropdown => {
+    let hoverTimeout;
+    
+    dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+        const content = dropdown.querySelector('.mc-dropdown-content');
+        content.style.display = 'block';
+        setTimeout(() => {
+            content.style.opacity = '1';
+            content.style.visibility = 'visible';
+        }, 10);
+    });
+    
+    dropdown.addEventListener('mouseleave', () => {
+        const content = dropdown.querySelector('.mc-dropdown-content');
+        hoverTimeout = setTimeout(() => {
+            content.style.opacity = '0';
+            content.style.visibility = 'hidden';
+            setTimeout(() => {
+                content.style.display = 'none';
+            }, 300);
+        }, 200); // 200ms delay before closing
+    });
+});
+    </script>
+    
+    <script defer src="{{ url_for('views.themes', path='js/vendor.bundle.js') }}"></script>
+    <script defer src="{{ url_for('views.themes', path='js/core.js') }}"></script>
+    <script defer src="{{ url_for('views.themes', path='js/helpers.js') }}"></script>
+    
+    {% block entrypoint %}
+    <script defer src="{{ url_for('views.themes', path='js/pages/main.js') }}"></script>
+    {% endblock %}
+    
+    {% block scripts %}{% endblock %}
+    
+    {{ Plugins.scripts }}
+    {{ Configs.theme_footer }}
+</body>
+</html>

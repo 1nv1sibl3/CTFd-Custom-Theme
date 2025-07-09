@@ -1,0 +1,626 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+	
+	body {
+		background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+		font-family: 'Press Start 2P', monospace;
+		color: #CCCCCC;
+		min-height: 100vh;
+	}
+
+	/* Main Content Styles */
+	.retro-header {
+		background: linear-gradient(135deg, #3c3c3c, #4a4a4a);
+		border: 3px solid #FFD700;
+		box-shadow: 4px 4px 0 #8B0000;
+		border-radius: 8px;
+		padding: 2rem;
+		margin: 2rem 0;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.retro-header::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: repeating-linear-gradient(
+			90deg,
+			#FFD700 0px,
+			#FFD700 8px,
+			transparent 8px,
+			transparent 16px
+		);
+	}
+
+	.retro-header h1 {
+		color: #FFD700;
+		text-shadow: 3px 3px #8B0000;
+		font-size: 24px;
+		margin-bottom: 1.5rem;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+	}
+
+	.retro-header h2 {
+		color: #4A90E2;
+		text-shadow: 2px 2px #2A5DB0;
+		font-size: 16px;
+		margin: 0.8rem 0;
+		letter-spacing: 1px;
+	}
+
+	.retro-header h3 {
+		font-size: 10px;
+		margin: 0.3rem 0.5rem;
+		display: inline-block;
+	}
+
+	.badge {
+		background: #FFD700;
+		color: #000000;
+		font-family: 'Press Start 2P', monospace;
+		font-size: 8px;
+		padding: 6px 10px;
+		border: 2px solid #B8860B;
+		box-shadow: 2px 2px 0 #8B6914;
+		border-radius: 4px;
+		text-transform: uppercase;
+		display: inline-block;
+		margin: 0.2rem;
+		font-weight: normal;
+	}
+
+	.badge-primary {
+		background: #FFD700;
+		color: #000000;
+		border-color: #B8860B;
+		box-shadow: 2px 2px 0 #8B6914;
+	}
+
+	.badge-secondary {
+		background: #4A90E2;
+		color: #FFFFFF;
+		border-color: #2A5DB0;
+		box-shadow: 2px 2px 0 #1A3A6D;
+	}
+
+	.user-badges {
+		margin: 1rem 0;
+		line-height: 2;
+	}
+
+	.user-scores {
+		margin: 1.5rem 0;
+		padding: 1rem 0;
+		border-top: 1px solid #555555;
+		border-bottom: 1px solid #555555;
+	}
+
+	.user-scores h2 {
+		margin: 0.5rem 0;
+	}
+
+	.user-scores small {
+		font-size: 60%;
+		color: #AAAAAA;
+		text-transform: lowercase;
+	}
+
+	.control-icons {
+		margin-top: 2rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+		padding-top: 1rem;
+		border-top: 2px solid #555555;
+	}
+
+	.btn-fa {
+		background: #4A90E2;
+		color: #FFFFFF;
+		padding: 12px 16px;
+		border: 3px solid #2A5DB0;
+		box-shadow: 3px 3px 0 #1A3A6D;
+		border-radius: 6px;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 48px;
+		min-height: 48px;
+	}
+
+	.btn-fa:hover {
+		background: #2A5DB0;
+		color: #FFFFFF;
+		box-shadow: 1px 1px 0 #0F2347;
+		transform: translate(2px, 2px);
+		text-decoration: none;
+	}
+
+	/* Section Styles */
+	.retro-section {
+		background: linear-gradient(135deg, #2a2a2a, #3c3c3c);
+		border: 2px solid #555555;
+		box-shadow: 3px 3px 0 #222222;
+		border-radius: 6px;
+		margin: 2rem 0;
+		padding: 1.5rem;
+		position: relative;
+	}
+
+	.retro-section::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: repeating-linear-gradient(
+			90deg,
+			#4A90E2 0px,
+			#4A90E2 8px,
+			transparent 8px,
+			transparent 16px
+		);
+	}
+
+	.retro-section h3 {
+		color: #FFD700;
+		text-shadow: 2px 2px #8B0000;
+		font-size: 14px;
+		margin-bottom: 1rem;
+		text-transform: uppercase;
+		border-bottom: 2px solid #FFD700;
+		padding-bottom: 0.5rem;
+	}
+
+	/* Table Styles */
+	.table {
+		background: #1a1a1a;
+		border: 3px solid #FFD700;
+		border-radius: 6px;
+		overflow: hidden;
+		font-family: 'Press Start 2P', monospace;
+		font-size: 10px;
+		box-shadow: 3px 3px 0 #8B6914;
+	}
+
+	.table thead {
+		background: linear-gradient(135deg, #FFD700, #B8860B);
+		color: #000000;
+	}
+
+	.table thead td {
+		border-bottom: 2px solid #8B6914;
+		padding: 12px 16px;
+		text-transform: uppercase;
+		font-weight: bold;
+		text-shadow: 1px 1px 0 #FFFFFF;
+	}
+
+	.table tbody tr {
+		background: #2a2a2a;
+		border-bottom: 1px solid #444444;
+	}
+
+	.table tbody tr:nth-child(even) {
+		background: #353535;
+	}
+
+	.table tbody tr:hover {
+		background: #4A90E2;
+		color: #FFFFFF;
+		text-shadow: 1px 1px 0 #2A5DB0;
+	}
+
+	.table tbody td {
+		padding: 12px 16px;
+		color: #CCCCCC;
+		border: none;
+		vertical-align: middle;
+	}
+
+	.table tbody td a {
+		color: #FFD700;
+		text-decoration: none;
+		text-shadow: 1px 1px #8B6914;
+	}
+
+	.table tbody td a:hover {
+		color: #FFFFFF;
+		text-shadow: 1px 1px #FFD700;
+	}
+
+	.table tbody tr:hover td a {
+		color: #FFFFFF;
+		text-shadow: 1px 1px #2A5DB0;
+	}
+
+	/* Graph Containers */
+	.graph-container {
+		background: #1a1a1a;
+		border: 2px solid #4A90E2;
+		border-radius: 6px;
+		padding: 1rem;
+		margin: 1rem 0;
+		min-height: 300px;
+		position: relative;
+	}
+
+	.graph-container::before {
+		content: '';
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		right: 5px;
+		bottom: 5px;
+		border: 1px dashed #4A90E2;
+		border-radius: 4px;
+		opacity: 0.5;
+	}
+
+	/* Awards Section */
+	.award-container {
+		background: linear-gradient(135deg, #3c3c3c, #2a2a2a);
+		border: 2px solid #FFD700;
+		border-radius: 6px;
+		padding: 1rem;
+		margin: 0.5rem;
+		text-align: center;
+		box-shadow: 3px 3px 0 #8B6914;
+	}
+
+	.award-icon {
+		color: #FFD700;
+		text-shadow: 2px 2px #8B0000;
+		margin-bottom: 0.5rem;
+	}
+
+	.award-container strong {
+		color: #FFD700;
+		font-size: 10px;
+		text-transform: uppercase;
+	}
+
+	.award-container p {
+		color: #CCCCCC;
+		font-size: 8px;
+		margin: 0.5rem 0;
+	}
+
+	/* No Content Message */
+	.no-content {
+		text-align: center;
+		padding: 3rem;
+		color: #666666;
+		font-size: 14px;
+		text-transform: uppercase;
+		background: repeating-linear-gradient(
+			45deg,
+			#2a2a2a,
+			#2a2a2a 10px,
+			#3c3c3c 10px,
+			#3c3c3c 20px
+		);
+		border: 2px solid #444444;
+		border-radius: 6px;
+	}
+
+	/* Spinner */
+	.spinner {
+		color: #4A90E2;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 768px) {
+		.retro-header h1 { font-size: 18px; }
+		.retro-header h2 { font-size: 14px; }
+		.retro-section h3 { font-size: 12px; }
+		.table { font-size: 8px; }
+		.control-icons { gap: 0.5rem; }
+		.btn-fa { padding: 8px 12px; min-width: 40px; min-height: 40px; }
+	}
+
+	/* Override default jumbotron styles */
+	.jumbotron {
+		background: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	/* Container styling */
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
+	/* Clearfix and row adjustments */
+	.row {
+		margin: 0 -0.5rem;
+	}
+
+	.col-md-12, .col-md-6, .col-md-3, .col-sm-6 {
+		padding: 0 0.5rem;
+	}
+
+	/* Min height for empty state */
+	.min-vh-25 {
+		min-height: 25vh;
+	}
+
+	.opacity-50 {
+		opacity: 0.5;
+	}
+
+	.justify-content-center {
+		justify-content: center;
+	}
+
+	.align-self-center {
+		align-self: center;
+	}
+
+	.w-100 {
+		width: 100%;
+	}
+
+	.text-center {
+		text-align: center;
+	}
+
+	.d-flex {
+		display: flex;
+	}
+
+	.align-items-center {
+		align-items: center;
+	}
+
+	.d-inline-block {
+		display: inline-block;
+	}
+
+	.d-block {
+		display: block;
+	}
+
+	.pt-3 {
+		padding-top: 1rem;
+	}
+
+	.px-2 {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}
+
+	.fa-2x {
+		font-size: 2em;
+	}
+
+	.fa-3x {
+		font-size: 3em;
+	}
+
+	.fa-fw {
+		width: 1.25em;
+		text-align: center;
+	}
+
+	.fa-spin {
+		animation: fa-spin 2s infinite linear;
+	}
+
+	@keyframes fa-spin {
+		0% { transform: rotate(0deg); }
+		100% { transform: rotate(360deg); }
+	}
+
+	/* Responsive display classes */
+	@media (max-width: 767px) {
+		.d-none.d-md-block.d-lg-block {
+			display: none !important;
+		}
+	}
+
+	@media (min-width: 768px) {
+		.d-none.d-md-block.d-lg-block {
+			display: block !important;
+		}
+	}
+
+	.table-responsive {
+		overflow-x: auto;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="retro-header">
+			<h1>{{ user.name }}</h1>
+
+			<div class="user-badges">
+				{% if user.team_id %}
+					<h2>
+						<a href="{{ url_for('teams.public', team_id=user.team_id) }}">
+							<span class="badge badge-secondary">
+								{{ user.team.name }}
+							</span>
+						</a>
+					</h2>
+				{% endif %}
+
+				{% if user.oauth_id %}
+					<a href="https://majorleaguecyber.org/u/{{ user.name }}">
+						<span class="badge badge-primary">Official</span>
+					</a>
+				{% endif %}
+
+				{% if user.affiliation %}
+					<span class="badge badge-primary">{{ user.affiliation }}</span>
+				{% endif %}
+
+				{% if user.country %}
+					<span class="badge badge-primary">
+						<i class="flag-{{ user.country.lower() }}"></i>
+						{{ lookup_country_code(user.country) }}
+					</span>
+				{% endif %}
+			</div>
+
+			{% for field in user.fields %}
+				<h3 class="d-block">
+					{{ field.name }}: {{ field.value }}
+				</h3>
+			{% endfor %}
+
+			<div class="user-scores">
+				<h2 class="text-center">
+					{% if account.place %}
+						{{ account.place }} <small>place</small>
+					{% endif %}
+				</h2>
+				<h2 class="text-center">
+					{% if account.place %}
+						{{ account.score }} <small>points</small>
+					{% endif %}
+				</h2>
+			</div>
+
+			<div class="control-icons">
+				{% if user.website %}
+					<a href="{{ user.website }}" target="_blank" style="color: inherit;" rel="noopener">
+						<i class="btn-fa fas fa-external-link-alt fa-lg" data-toggle="tooltip" data-placement="top"
+						   title="{{ user.website }}"></i>
+					</a>
+				{% endif %}
+			</div>
+		</div>
+
+		{% include "components/errors.html" %}
+
+		{% set solves = user.solves %}
+		{% set awards = user.awards %}
+		{% if solves or awards %}
+			<div class="retro-section">
+				<h3>User Statistics</h3>
+				<div class="row">
+					<div class="col-md-6 d-none d-md-block d-lg-block">
+						<div id="keys-pie-graph" class="graph-container d-flex align-items-center">
+							<div class="text-center w-100">
+								<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 d-none d-md-block d-lg-block">
+						<div id="categories-pie-graph" class="graph-container d-flex align-items-center">
+							<div class="text-center w-100">
+								<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 d-none d-md-block d-lg-block">
+						<div id="score-graph" class="graph-container w-100 d-flex align-items-center">
+							<div class="text-center w-100">
+								<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% if awards %}
+				<div class="retro-section">
+					<h3>Awards</h3>
+					<div class="row">
+						{% for award in awards %}
+							<div class="col-md-3 col-sm-6">
+								<div class="award-container">
+									<i class="award-icon award-{{ award.icon }} fa-2x"></i>
+									<br>
+									<strong>{{ award.name }}</strong>
+									{% if award.category %}<p>{{ award.category }}</p>{% endif %}
+									{% if award.description %}<p>{{ award.description }}</p>{% endif %}
+									<p>{{ award.value }} points</p>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+
+			<div class="retro-section">
+				<h3>Solves</h3>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td><b>Challenge</b></td>
+								<td class="d-none d-md-block d-lg-block"><b>Category</b></td>
+								<td><b>Value</b></td>
+								<td><b>Time</b></td>
+							</tr>
+						</thead>
+						<tbody>
+							{% for solve in solves %}
+								<tr>
+									<td>
+										<a href="{{ url_for('challenges.listing') }}#{{ solve.challenge.name }}-{{ solve.challenge.id }}">
+											{{ solve.challenge.name }}
+										</a>
+									</td>
+									<td class="d-none d-md-block d-lg-block">{{ solve.challenge.category }}</td>
+									<td>{{ solve.challenge.value }}</td>
+									<td class="solve-time">
+										<span data-time="{{ solve.date | isoformat }}"></span>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% else %}
+			<div class="retro-section">
+				<div class="no-content">
+					<h3>No Solves Yet</h3>
+					<p>This user hasn't solved any challenges yet!</p>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		var stats_data = {{ {
+			'type': 'user',
+			'id': user.id,
+			'name': user.name,
+			'account_id': user.id,
+		} | tojson }};
+	</script>
+	<script defer src="{{ url_for('views.themes', path='js/echarts.bundle.js') }}"></script>
+	<script defer src="{{ url_for('views.themes', path='js/graphs.js') }}"></script>
+{% endblock %}
+
+{% block entrypoint %}
+	{% if solves or awards %}
+		<script defer src="{{ url_for('views.themes', path='js/pages/stats.js') }}"></script>
+	{% endif %}
+{% endblock %}

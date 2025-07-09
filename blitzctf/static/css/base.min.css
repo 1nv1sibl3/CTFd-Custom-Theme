@@ -1,0 +1,718 @@
+:root {
+    --mc-dirt: #8B4513;
+    --mc-grass: #228B22;
+    --mc-stone: #696969;
+    --mc-wood: #DEB887;
+    --mc-sky: #87CEEB;
+    --mc-water: #4682B4;
+    
+    /* UI Colors */
+    --mc-gui-bg: #C6C6C6;
+    --mc-gui-light: #FFFFFF;
+    --mc-gui-dark: #555555;
+    --mc-gui-darker: #000000;
+    --mc-text: #404040;
+    --mc-text-light: #FFFFFF;
+    --mc-green: #00AA00;
+    --mc-red: #AA0000;
+    --mc-blue: #5555FF;
+    --mc-yellow: #FFFF55;
+    --mc-purple: #AA00AA;
+    --mc-aqua: #55FFFF;
+    --mc-gold: #FFAA00;
+    
+    /* Inventory Colors */
+    --mc-slot-bg: #8B8B8B;
+    --mc-slot-border: #373737;
+    --mc-hotbar-bg: #3C3C3C;
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--mc-text-light);
+    overflow-x: hidden;
+    position: relative;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #87CEEB 0%, #98FB98 30%, #228B22 100%);
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 32px,
+            rgba(0,0,0,0.1) 32px,
+            rgba(0,0,0,0.1) 34px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 32px,
+            rgba(0,0,0,0.1) 32px,
+            rgba(0,0,0,0.1) 34px
+        );
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Floating Blocks Animation */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="16" height="16" fill="%23654321" opacity="0.1"/><rect x="16" y="16" width="16" height="16" fill="%23228B22" opacity="0.1"/></svg>') repeat;
+    background-size: 64px 64px;
+    z-index: -1;
+    animation: floatingBlocks 60s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes floatingBlocks {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Navigation */
+.minecraft-nav {
+    background: var(--mc-hotbar-bg);
+    border-bottom: 4px solid var(--mc-gui-darker);
+    padding: 8px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+}
+
+/* Retro Brand Style */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #FFD700;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 
+        2px 2px 0 #FF4500,
+        4px 4px 0 #8B0000,
+        -1px -1px 0 #FFD700,
+        1px -1px 0 #FFD700,
+        -1px 1px 0 #FFD700,
+        1px 1px 0 #FFD700;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 4px 8px;
+    animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.nav-brand::before,
+.nav-brand:hover::before {
+    display: none !important;
+    opacity: 0 !important;
+    animation: none !important;
+    text-decoration: none !important;
+}
+
+.nav-brand:hover {
+    color: #FFFFFF;
+    transform: scale(1.05) rotate(-2deg);
+    text-decoration: none;
+    
+}
+
+/* .nav-brand:hover::before {
+    opacity: 0.3;
+    animation: borderRotate 2s linear infinite;
+} */
+
+.nav-brand img {
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+    filter: drop-shadow(2px 2px 0 #FF4500);
+    transition: transform 0.3s;
+}
+
+.nav-brand:hover img {
+    transform: rotate(360deg) scale(1.2);
+}
+
+@keyframes textGlow {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+    }
+    100% {
+        filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    }
+}
+
+@keyframes borderRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 8-bit Button Styles */
+.mc-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    background: #FFEA70;
+    border: none;
+    color: #000000;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-shadow: 1px 1px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+    clip-path: polygon(
+        0 4px,
+        4px 0,
+        calc(100% - 4px) 0,
+        100% 4px,
+        100% calc(100% - 4px),
+        calc(100% - 4px) 100%,
+        4px 100%,
+        0 calc(100% - 4px)
+    );
+    text-decoration: none;
+}
+
+.mc-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255,255,255,0.4) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-decoration: none;
+}
+
+.mc-button:hover {
+    transform: translateY(-2px);
+    background: #FFD700;
+    box-shadow: 
+        0 4px 0 #B8860B,
+        0 6px 10px rgba(0,0,0,0.3);
+    text-decoration: none;
+}
+
+.mc-button:hover::before {
+    opacity: 1;
+}
+
+.mc-button:active {
+    transform: translateY(2px);
+    background: #D4AF37;
+    box-shadow: 
+        0 0 0 #B8860B,
+        0 2px 4px rgba(0,0,0,0.3);
+    text-decoration: none; 
+}
+
+.mc-button.active {
+    background: #FFD700;
+    color: #000000;
+    text-shadow: 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 
+        0 4px 0 #8B7500,
+        0 6px 10px rgba(0,0,0,0.3);
+    animation: activeButton 2s infinite;
+    text-decoration: none;
+}
+
+@keyframes activeButton {
+    0%, 100% {
+        transform: translateY(-2px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* 8-bit Dropdown Menu */
+.mc-dropdown {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.mc-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #2A2A2A;
+    min-width: 180px;
+    z-index: 1001;
+    margin-top: 8px;
+    padding: 4px;
+    clip-path: polygon(
+        0 4px,
+        4px 0,
+        calc(100% - 4px) 0,
+        100% 4px,
+        100% calc(100% - 4px),
+        calc(100% - 4px) 100%,
+        4px 100%,
+        0 calc(100% - 4px)
+    );
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    animation: dropdownAppear 0.3s ease-out;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    text-decoration: none;
+}
+
+.mc-dropdown:hover .mc-dropdown-content,
+.mc-dropdown-content:hover {
+    opacity: 1;
+    visibility: visible;
+    text-decoration: none;
+}
+
+@keyframes dropdownAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mc-dropdown:hover .mc-dropdown-content,
+.mc-dropdown-content:hover {
+    display: block;
+}
+
+.mc-dropdown .mc-button {
+    min-width: 140px;
+}
+
+.mc-button-icon {
+    min-width: 40px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.mc-button-icon i {
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.mc-button-icon:hover i {
+    transform: scale(1.1);
+    text-decoration: none;
+}
+
+.mc-dropdown-content a {
+    display: block;
+    padding: 10px 16px;
+    color: #FFD700;
+    font-size: 11px;
+    font-family: 'Press Start 2P', monospace;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    margin: 2px 0;
+    background: var(--mc-hotbar-bg);
+    clip-path: polygon(
+        0 2px,
+        2px 0,
+        calc(100% - 2px) 0,
+        100% 2px,
+        100% calc(100% - 2px),
+        calc(100% - 2px) 100%,
+        2px 100%,
+        0 calc(100% - 2px)
+    );
+    text-decoration: none;
+}
+
+.mc-dropdown-content a:hover {
+    background: #FFD700;
+    color: #000000; 
+    transform: translateX(4px);
+    box-shadow: -4px 0 0 #8B7500;
+    text-decoration: none;
+}
+
+.mc-dropdown-content a:active {
+    background: #8B7500;
+    transform: translateX(2px);
+}
+
+/* Main Content Area */
+.minecraft-main {
+    flex: 1;
+    padding: 24px 0;
+}
+
+.main-container {
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/*Panel/Window */
+.mc-panel {
+    background: var(--mc-gui-bg);
+    border: 2px solid;
+    border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+    box-shadow: 4px 4px 0 var(--mc-gui-darker);
+    padding: 16px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.mc-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.mc-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.mc-panel h1, .mc-panel h2, .mc-panel h3 {
+    color: var(--mc-text);
+    margin-bottom: 16px;
+    text-shadow: 1px 1px rgba(255,255,255,0.8);
+}
+
+.mc-panel h1 {
+    font-size: 16px;
+    text-align: center;
+    border-bottom: 2px solid var(--mc-gui-dark);
+    padding-bottom: 8px;
+}
+
+.mc-panel p {
+    color: var(--mc-text);
+    margin-bottom: 12px;
+}
+
+/* Form Elements */
+.mc-input, .form-control {
+    width: 100%;
+    padding: 8px;
+    background: var(--mc-gui-bg);
+    border: 2px solid;
+    border-color: var(--mc-gui-dark) var(--mc-gui-light) var(--mc-gui-light) var(--mc-gui-dark);
+    color: var(--mc-text);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.mc-input:focus, .form-control:focus {
+    outline: none;
+    background: #D0D0D0;
+    box-shadow: inset 2px 2px 0 rgba(0,0,0,0.3);
+    
+}
+
+/* Alerts */
+.alert {
+    padding: 12px;
+    margin: 12px 0;
+    border: 2px solid;
+    font-size: 10px;
+}
+
+.alert-success {
+    background: #90EE90;
+    border-color: #98FB98 #228B22 #228B22 #98FB98;
+    color: #006400;
+}
+
+.alert-danger {
+    background: #FFB6C1;
+    border-color: #FFC0CB #8B0000 #8B0000 #FFC0CB;
+    color: #8B0000;
+}
+
+.alert-warning {
+    background: #FFFFE0;
+    border-color: #FFFACD #DAA520 #DAA520 #FFFACD;
+    color: #B8860B;
+}
+
+.alert-info {
+    background: #E0FFFF;
+    border-color: #F0FFFF #4682B4 #4682B4 #F0FFFF;
+    color: #4682B4;
+}
+
+/* Retro Footer */
+.minecraft-footer {
+    background: var(--mc-hotbar-bg);
+    border-top: 4px solid var(--mc-gui-darker);
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.minecraft-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #FFD700 20%, 
+        #FFD700 80%, 
+        transparent 100%
+    );
+    animation: footerGlow 2s ease-in-out infinite;
+}
+
+.minecraft-footer p {
+    font-size: 14px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px #000000;
+    margin: 0;
+}
+
+.minecraft-footer a {
+    color: #FFD700;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 0 4px;
+}
+
+.minecraft-footer a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #FFD700;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.minecraft-footer a:hover {
+    color: #FFFFFF;
+    text-shadow: 
+        0 0 5px #FFD700,
+        0 0 10px #FFD700,
+        0 0 15px #FFD700;
+}
+
+.minecraft-footer a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.team-credit {
+    font-size: 12px;
+    color: #FFD700;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulseText 2s ease-in-out infinite alternate;
+}
+
+@keyframes footerGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translateX(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(10px);
+    }
+}
+
+@keyframes pulseText {
+    0% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Theme Toggle Buttons */
+.theme-controls {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .nav-items {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .mc-button {
+        font-size: 9px;
+        padding: 6px 10px;
+    }
+    
+    .main-container {
+        padding: 0 8px;
+    }
+    
+    .mc-panel {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-items {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .mc-button {
+        width: 100%;
+        justify-content: center;
+        text-decoration: none;
+    }
+    
+    .mc-dropdown-content {
+        position: static;
+        display: block;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        text-decoration: none;
+    }
+    
+    .mc-dropdown-content a {
+        border: 2px solid;
+        border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+        background: var(--mc-gui-bg);
+        margin-bottom: 4px;
+        text-decoration: none;
+    }
+}
+
+/* Utility Classes */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.text-center { text-align: center; }
+.mb-3 { margin-bottom: 1rem; }
+.mt-3 { margin-top: 1rem; }
+
+/* Dark theme styles */
+.dark-theme {
+    background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+.dark-theme .minecraft-nav,
+.dark-theme .minecraft-footer {
+    background: #2a2a2a;
+}
+.dark-theme .mc-panel {
+    background: #4a4a4a;
+    color: var(--mc-text-light);
+}
+.dark-theme .mc-panel h1,
+.dark-theme .mc-panel h2,
+.dark-theme .mc-panel h3,
+.dark-theme .mc-panel p {
+    color: var(--mc-text-light);
+}
+
+
