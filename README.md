@@ -12,7 +12,13 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green.svg">
   <img alt="Contributions welcome" src="https://img.shields.io/badge/contributions-welcome-orange">
   <img alt="Theme Style" src="https://img.shields.io/badge/style-pixelated%20retro-ff69b4">
+  <img alt="Stars" src="https://img.shields.io/github/stars/1nv1sibl3/CTFd-Custom-Theme?style=social">
+  <img alt="Forks" src="https://img.shields.io/github/forks/1nv1sibl3/CTFd-Custom-Theme?style=social">
+  <img alt="Made with Love" src="https://img.shields.io/badge/made%20with-%E2%9D%A4-red">
+  <img alt="Dependabot" src="https://img.shields.io/badge/dependabot-enabled-brightgreen">
+
 </p>
+
 
 ---
 
