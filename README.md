@@ -2,7 +2,7 @@
   <img src="assets/index.png" alt="Pixelated Theme Home" height="180">
 </p>
 
-<h1 align="center">🎮 Pixelated CTFd Theme</h1>
+<h1 align="center">🎮 Pixelated/Retro CTFd Theme</h1>
 
 <p align="center">
   <strong>A retro, pixel-art inspired theme for CTFd — clean, quirky, and challenge-focused</strong>
@@ -24,7 +24,10 @@ Features:
 - Custom-styled challenge cards
 - Retro fonts and UI
 - Redesigned scoreboard, team pages, and settings
+- Option to switch between dark and light mode.
+- Toggle click sound.
 - Optimized for both desktop and mobile
+- Unique pixelated mouse pointer.
 
 > 🔗 **Live Demo (Static Preview)**: [https://2025.blitzhack.xyz](https://2025.blitzhack.xyz)  
 > 📌 *Note: This is a static site preview — backend features such as login, flag submission, and scoring are disabled. Static code available at [BlitzCTF-2025-Archive](https://github.com/1nv1sibl3/BlitzCTF-2025/).*
@@ -51,14 +54,14 @@ Features:
 
 To use this theme in your CTFd instance:
 
-1. Clone this repository inside the CTFd `themes/` directory:
+1. Clone this repository and move the `blitzctf` folder to the CTFd `themes/` directory:
 
    ```bash
-   cd /path/to/CTFd/themes
    git clone https://github.com/1nv1sibl3/CTFd-Custom-Theme.git
+   mv /path/to/blitzctf /path/to/CTFd/themes
    ```
 
-2. Rename the folder if needed (e.g., `pixelated`).
+2. Rename the folder `blitzctf` if needed (e.g., `pixelated`).
 
 3. In the CTFd admin panel:
 
@@ -70,7 +73,7 @@ To use this theme in your CTFd instance:
    ```bash
    docker restart ctfd
    ```
-
+   Or click `Update` button located below the theme change dropdown.
 
 
 > 💡 Tip: Test the theme on a local CTFd dev instance before using it in production.
