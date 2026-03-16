@@ -35,7 +35,7 @@ Features:
 - Optimized for both desktop and mobile
 - Unique pixelated mouse pointer.
 
-> 🔗 **Live Demo (Static Preview)**: [https://2025.blitzhack.xyz](https://2025.blitzhack.xyz)  
+> 🔗 **Live Demo (Static Preview)**: [https://2025.blitzhack.xyz](https://2025.blitzhack.in)  
 > 📌 *Note: This is a static site preview — backend features such as login, flag submission, and scoring are disabled. Static code available at [BlitzCTF-2025-Archive](https://github.com/1nv1sibl3/BlitzCTF-2025/).*
 
 ---
